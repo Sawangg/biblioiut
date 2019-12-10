@@ -16,7 +16,6 @@ int MenuWithColor(string options[], int nbOptions) {
 	void changeCoord(int w, int y);
 	COORD now;
 
-	HANDLE win;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 
 	SetColorAndBackground(15, 0);
@@ -29,16 +28,7 @@ int MenuWithColor(string options[], int nbOptions) {
 	system("cls");
 	cout << options[0] << endl;
 	for (int i = 1; i <= nbOptions; i++) {
-		cout << Upurple << i << ". ";
-		if (i == selection) {
-			SetColorAndBackground(0, 15);
-		}
-		else {
-			SetColorAndBackground(15, 0);
-		}
-		cout << options[i];
-		SetColorAndBackground(15, 0);
-		cout << endl;
+		cout << Upurple << i << ". " << normal << options[i] << endl;
 	}
 
 	while (!choisi) {
@@ -88,6 +78,9 @@ int MenuWithColor(string options[], int nbOptions) {
 			}
 		} while (touche != ENTER && touche != KEY_UP && touche != KEY_DOWN);
 	}
+
+	cout << selection;
+	system("pause");
 
 	return selection;
 }

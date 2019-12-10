@@ -11,7 +11,7 @@ int main() {
     Bibliotheque biblio;
     Livre tab_livres[MAX_LIVRES];
     string Options[100];
-    int nbElem = 0;
+    int nbElem = 0, choix;
     void menuOptions(int menu, string listOptions[], int& nbElem);
     int MenuWithColor(string Options[], int nbElem);
     void afficheLivres(Bibliotheque biblio);
@@ -22,7 +22,8 @@ int main() {
 
     menuOptions(1, Options, nbElem);
     do {
-        switch (MenuWithColor(Options, nbElem)) {
+        choix = MenuWithColor(Options, nbElem);
+        switch (choix) {
         case 1:
             afficheLivres(biblio);
             system("pause");
@@ -46,6 +47,6 @@ int main() {
             cout << red << "Erreur inconnue" << endl;
             break;
         }
-    } while (MenuWithColor(Options, nbElem) != 5);
+    } while (choix != 5);
     return 0;
 }
