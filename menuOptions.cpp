@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void menuOptions(int menu, string listOptions[], int& nbElem) {
+void menuOptions(int menu, string listOptions[], int& nbOptions) {
 	char normal[] = { 0x1b,'[','0',';','3','9','m',0 };
 	char black[] = { 0x1b,'[','0',';','3','0','m',0 };
 	char red[] = { 0x1b,'[','0',';','3','1','m',0 };

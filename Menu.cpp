@@ -12,11 +12,17 @@
 #define ENTER         13
 using namespace std;
 
-int MenuWithColor(string options[], int nbOptions) {
+int MenuWithColor(int menu) {
 	void changeCoord(int w, int y);
-	COORD now;
+	void menuOptions(int menu, string listOptions[], int& nbOptions);
 
+	COORD now;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+
+	string options[30];
+	int nbOptions = 0;
+
+	menuOptions(menu, options, nbOptions);
 
 	SetColorAndBackground(15, 0);
 

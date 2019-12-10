@@ -12,17 +12,15 @@ int main() {
     Livre tab_livres[MAX_LIVRES];
     string Options[100];
     int nbElem = 0, choix;
-    void menuOptions(int menu, string listOptions[], int& nbElem);
-    int MenuWithColor(string Options[], int nbElem);
+    int MenuWithColor(int numMenu);
     void afficheLivres(Bibliotheque biblio);
     int ajoutLivre(Bibliotheque& biblio);
     int supprLivre(Bibliotheque & biblio);
 
     biblio.nbrElem = 0;
 
-    menuOptions(1, Options, nbElem);
     do {
-        choix = MenuWithColor(Options, nbElem);
+        choix = MenuWithColor(1);
         switch (choix) {
         case 1:
             afficheLivres(biblio);
@@ -37,7 +35,7 @@ int main() {
             system("pause");
             break;
         case 4:
-            menuOptions(1, Options, nbElem);
+            MenuWithColor(2); // préférable d'utiliser une nouvelle procédure et d'y appeler le menu dedans
 
             break;
         case 5:
