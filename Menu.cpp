@@ -79,9 +79,6 @@ int MenuWithColor(string options[], int nbOptions) {
 		} while (touche != ENTER && touche != KEY_UP && touche != KEY_DOWN);
 	}
 
-	cout << selection;
-	system("pause");
-
 	return selection;
 }
 
