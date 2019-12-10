@@ -24,7 +24,7 @@ int MenuWithColor(string options[], int nbOptions) {
 	bool choisi = false;
 
 	oldselection = selection;
-
+	 
 	system("cls");
 	cout << options[0] << endl;
 	for (int i = 1; i <= nbOptions; i++) {
@@ -86,6 +86,6 @@ int MenuWithColor(string options[], int nbOptions) {
 }
 
 void changeCoord(int x, int y) {
-	COORD p = { x, y };
+	COORD p = { SHORT(x), SHORT(y) };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
 }
