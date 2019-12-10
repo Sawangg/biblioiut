@@ -2,51 +2,71 @@
 #include <string>
 #include <windows.h> 
 #include <conio.h>
+
+#include "color.h"
+
+#define KEY_UP        72
+#define KEY_DOWN      80
+#define KEY_LEFT      75
+#define KEY_RIGHT     77
+#define ENTER         13
 using namespace std;
 
 int MenuWithColor(string options[], int nbOptions) {
-	void SetColorAndBackground(int ForgC, int BackC);
+	void changeCoord(int w, int y);
+	COORD now;
+
+	HANDLE win;
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+
 	SetColorAndBackground(15, 0);
 
-	char normal[] = { 0x1b,'[','0',';','3','9','m',0 };
-	char black[] = { 0x1b,'[','0',';','3','0','m',0 };
-	char red[] = { 0x1b,'[','0',';','3','1','m',0 };
-	char green[] = { 0x1b,'[','0',';','3', '2','m',0 };
-	char yellow[] = { 0x1b,'[','0',';','3', '3', 'm',0 };
-	char blue[] = { 0x1b,'[','0',';','3','4','m',0 };
-	char Upurple[] = { 0x1b,'[','1',';','3','5','m',0 };
-	char cyan[] = { 0x1b,'[','0',';','3','6','m',0 };
-	char lgray[] = { 0x1b,'[','0',';','3','7','m',0 };
-	char dgray[] = { 0x1b,'[','0',';','3','8','m',0 };
-	char Bred[] = { 0x1b,'[','1',';','3','1','m',0 };
-
-	int selection = 1, touche, sizeTitre;
+	int selection = 1, oldselection, touche;
 	bool choisi = false;
 
-	while (!choisi) {
-		system("cls");
+	oldselection = selection;
 
-		cout << options[0] << endl;
-
-		for (int i = 1; i <= nbOptions; i++) {
-			cout << Upurple << i << ". ";
-			if (i == selection) {
-				SetColorAndBackground(0, 15);
-			}
-			else {
-				SetColorAndBackground(15, 0);
-			}
-			cout << options[i];
-			SetColorAndBackground(15, 0);
-			cout << endl;
+	system("cls");
+	cout << options[0] << endl;
+	for (int i = 1; i <= nbOptions; i++) {
+		cout << Upurple << i << ". ";
+		if (i == selection) {
+			SetColorAndBackground(0, 15);
 		}
+		else {
+			SetColorAndBackground(15, 0);
+		}
+		cout << options[i];
+		SetColorAndBackground(15, 0);
+		cout << endl;
+	}
+
+	while (!choisi) {
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+		now.X = coninfo.dwCursorPosition.X;
+		now.Y = coninfo.dwCursorPosition.Y;
+
+		changeCoord(0, oldselection + 5);
+		cout << Upurple << oldselection << ". ";
+		SetColorAndBackground(15, 0);
+		cout << options[oldselection];
+		SetColorAndBackground(0, 15);
+
+		changeCoord(0, selection + 5);
+		cout << Upurple << selection << ". ";
+		SetColorAndBackground(0, 15);
+		cout << options[selection];
+		SetColorAndBackground(15, 0);
+
+		changeCoord(now.X, now.Y);
 
 		do {
 			touche = _getch();
 
+			oldselection = selection;
 			switch (touche)
 			{
-			case 72:
+			case KEY_UP:
 				if (selection == 1) {
 					selection = nbOptions;
 				}
@@ -54,7 +74,7 @@ int MenuWithColor(string options[], int nbOptions) {
 					selection--;
 				}
 				break;
-			case 80:
+			case KEY_DOWN:
 				if (selection == nbOptions) {
 					selection = 1;
 				}
@@ -62,18 +82,17 @@ int MenuWithColor(string options[], int nbOptions) {
 					selection++;
 				}
 				break;
-			case 13:
+			case ENTER:
 				choisi = true;
 				break;
 			}
-		} while (touche != 13 && touche != 72 && touche != 80);
+		} while (touche != ENTER && touche != KEY_UP && touche != KEY_DOWN);
 	}
 
 	return selection;
 }
 
-void SetColorAndBackground(int ForgC, int BackC) {
-	WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wColor);
-	return;
+void changeCoord(int x, int y) {
+	COORD p = { x, y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
 }
