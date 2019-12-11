@@ -14,9 +14,10 @@ int main() {
 
     int choix;
     int MenuWithColor(int numMenu);
+    void rechercheAvancee(Bibliotheque biblio);
     void afficheLivres(Bibliotheque biblio);
     int ajoutLivre(Bibliotheque& biblio);
-    int supprLivre(Bibliotheque & biblio);
+    // int supprLivre(Bibliotheque & biblio);
 
     biblio.nbrLivres = 0;
 
@@ -32,12 +33,11 @@ int main() {
             system("pause");
             break;
         case 3:
-            supprLivre(biblio);
+            // supprLivre(biblio); Fonction à modifier du au retour de la recherche
             system("pause");
             break;
         case 4:
-            MenuWithColor(2); // préférable d'utiliser une nouvelle procédure et d'y appeler le menu dedans
-
+            rechercheAvancee(biblio);
             break;
         case 5:
             system("exit");
