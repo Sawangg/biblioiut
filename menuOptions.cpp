@@ -62,25 +62,25 @@ string createTitre(string titre) {
 	int sizeTitre = titre.size();
 	string newTitre = "";
 
-	for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
+	for (int i = 0; i < sizeTitre + 2 + 12 * 2; i++) {
 		newTitre += string(cyan) + "=";
 	}
 	newTitre += "\n";
 	newTitre += "=";
-	for (int i = 0; i < sizeTitre + 6 * 2; i++) {
+	for (int i = 0; i < sizeTitre + 12 * 2; i++) {
 		newTitre += " ";
 	}
 	newTitre += "=";
 	newTitre += "\n";
-	newTitre += "=      " + string(blue) + titre + string(cyan) + "      =";
+	newTitre += "=            " + string(blue) + titre + string(cyan) + "            =";
 	newTitre += "\n";
 	newTitre += "=";
-	for (int i = 0; i < sizeTitre + 6 * 2; i++) {
+	for (int i = 0; i < sizeTitre + 12 * 2; i++) {
 		newTitre += " ";
 	}
 	newTitre += "=";
 	newTitre += "\n";
-	for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
+	for (int i = 0; i < sizeTitre + 2 + 12 * 2; i++) {
 		newTitre += "=";
 	}
 	newTitre += "\n";
