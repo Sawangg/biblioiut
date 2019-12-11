@@ -1,5 +1,6 @@
 #include <iostream>
 #include "sleep.h"
+#include "color.h"
 
 using namespace std;
 
@@ -16,52 +17,27 @@ void menuOptions(int menu, string listOptions[], int& nbOptions) {
 	char dgray[] = { 0x1b,'[','0',';','3','8','m',0 };
 	char Bred[] = { 0x1b,'[','1',';','3','1','m',0 };
 
-	string test;
-	int sizeTitre;
+	string createTitre(string titreMenu);
 
 	switch (menu) {
 	case 1:
-		listOptions[0] = "Bibliotheque IUT";
-		sizeTitre = listOptions[0].size();
-		for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
-			test += string(cyan) + "=";
-		}
-		test += "\n";
-		test += "=";
-		for (int i = 0; i < sizeTitre + 6 * 2; i++) {
-			test += " ";
-		}
-		test += "=";
-		test += "\n";
-		test += "=      " + string(blue) + listOptions[0] + string(cyan) + "      =";
-		test += "\n";
-		test += "=";
-		for (int i = 0; i < sizeTitre + 6 * 2; i++) {
-			test += " ";
-		}
-		test += "=";
-		test += "\n";
-		for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
-			test += "=";
-		}
-		test += "\n";
-		listOptions[0] = test;
+		listOptions[0] = createTitre("Bibliotheque IUT");
 		listOptions[1] = "Afficher l'ensemble des livres de la bibliothèque";
 		listOptions[2] = "Ajouter un nouveau livre";
 		listOptions[3] = "Supprimer un livre";
 		listOptions[4] = "Rechercher un livre";
 		listOptions[5] = "Quitter";
-		nbElem = 5;
+		nbOptions = 5;
 		break;
 	case 2:
-		listOptions[0] = "Recherche livre";
+		listOptions[0] = createTitre("Recherche livre");
 		listOptions[1] = "Rechercher un livre par son titre";
 		listOptions[2] = "Rechercher un livre par son type";
 		listOptions[3] = "Rechercher un livre par son genre";
 		listOptions[4] = "Rechercher un livre par son auteur";
 		listOptions[5] = "Rechercher un livre par sa date de parution";
 		listOptions[6] = "Retour";
-		nbElem = 6;
+		nbOptions = 6;
 		break;
 	default:
 		listOptions[0] = "ERROR";
@@ -80,4 +56,34 @@ void menuOptions(int menu, string listOptions[], int& nbOptions) {
     }
     cout << " \b Une sauvegarde est disponible";*/
 
+}
+
+string createTitre(string titre) {
+	int sizeTitre = titre.size();
+	string newTitre = "";
+
+	for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
+		newTitre += string(cyan) + "=";
+	}
+	newTitre += "\n";
+	newTitre += "=";
+	for (int i = 0; i < sizeTitre + 6 * 2; i++) {
+		newTitre += " ";
+	}
+	newTitre += "=";
+	newTitre += "\n";
+	newTitre += "=      " + string(blue) + titre + string(cyan) + "      =";
+	newTitre += "\n";
+	newTitre += "=";
+	for (int i = 0; i < sizeTitre + 6 * 2; i++) {
+		newTitre += " ";
+	}
+	newTitre += "=";
+	newTitre += "\n";
+	for (int i = 0; i < sizeTitre + 2 + 6 * 2; i++) {
+		newTitre += "=";
+	}
+	newTitre += "\n";
+
+	return newTitre;
 }
