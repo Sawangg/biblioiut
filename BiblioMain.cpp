@@ -11,13 +11,14 @@ int main() {
     Bibliotheque biblio;
     Livre tab_livres[MAX_LIVRES];
     string Options[100];
-    int nbElem = 0, choix;
+
+    int choix;
     int MenuWithColor(int numMenu);
     void afficheLivres(Bibliotheque biblio);
     int ajoutLivre(Bibliotheque& biblio);
     int supprLivre(Bibliotheque & biblio);
 
-    biblio.nbrElem = 0;
+    biblio.nbrLivres = 0;
 
     do {
         choix = MenuWithColor(1);

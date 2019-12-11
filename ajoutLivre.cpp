@@ -23,14 +23,14 @@ int ajoutLivre(Bibliotheque& biblio) {
 		cout << red << "Entrer un nom de livre !" << normal << endl;
 		getline(cin, nom);
 	}
-	biblio.tab_livres[biblio.nbrElem].titre = nom;
+	biblio.tab_livres[biblio.nbrLivres].titre = nom;
 	cout << "Entrer le nom de l'auteur :" << endl;
 	getline(cin, auteur);
 	while (auteur[0] == 0) {
 		cout << red << "Entrer un nom d'auteur !" << normal << endl;
 		getline(cin, auteur);
 	}
-	biblio.tab_livres[biblio.nbrElem].auteur = auteur;
+	/*biblio.tab_livres[biblio.nbrLivres].auteur = auteur;*/
 	do {
 		cout << "Entrer la date de parution" << endl;
 		cout << "Jour : ";
@@ -39,23 +39,23 @@ int ajoutLivre(Bibliotheque& biblio) {
 			cout << "\x1B[31mLe jour doit etre compris entre 1 et 31 !\033[0m";
 			j = ControleEntier();
 		}
-		biblio.tab_livres[biblio.nbrElem].date.jour = j;
+		biblio.tab_livres[biblio.nbrLivres].date.jour = j;
 		cout << "Mois : ";
 		m = ControleEntier();
 		while (m < 1 || m > 12) {
 			cout << "\x1B[31mLe mois doit etre compris entre 1 et 12 !\033[0m";
 			m = ControleEntier();
 		}
-		biblio.tab_livres[biblio.nbrElem].date.mois = m;
+		biblio.tab_livres[biblio.nbrLivres].date.mois = m;
 		cout << "Annee : ";
 		a = ControleEntier();
-		biblio.tab_livres[biblio.nbrElem].date.annee = a;
+		biblio.tab_livres[biblio.nbrLivres].date.annee = a;
 		cout << verifDate(a, m, j);
 	} while (verifDate(a, m, j) != "");
 
 	cout << "Entrer le nombre de pages : ";
 	pages = ControleEntier();
-	biblio.tab_livres[biblio.nbrElem].pages = pages;
+	biblio.tab_livres[biblio.nbrLivres].pages = pages;
 	cout << "\x1B[32mLe livre a bien ete ajoute !\033[0m" << endl;
 
 	ofstream file;
@@ -72,5 +72,5 @@ int ajoutLivre(Bibliotheque& biblio) {
 	infile.close();
 	system("pause");*/
 
-	return biblio.nbrElem += 1;
+	return biblio.nbrLivres += 1;
 }

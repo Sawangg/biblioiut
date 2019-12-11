@@ -8,7 +8,7 @@ int rechercheLivre(Bibliotheque biblio) {
     string titre;
     cin >> titre;
     int pos = 0;
-    while (biblio.nbrElem > pos) {
+    while (biblio.nbrLivres > pos) {
         if (biblio.tab_livres[pos].titre == titre) {
             return pos;
         } else {

@@ -5,7 +5,7 @@
 using namespace std;
 
 void verifnbrLivre(Bibliotheque biblio) {
-    if (biblio.nbrElem == 0) {
+    if (biblio.nbrLivres == 0) {
         cout << "\n";
         cout << "La bilbiotheque ne contient aucun livre !" << endl;
     }

@@ -6,6 +6,7 @@
 using namespace std;
 
 const int MAX_LIVRES = 100;
+const int MAX_AUTEURS = 100;
 
 typedef struct {
     int jour;
@@ -13,24 +14,29 @@ typedef struct {
     int annee;
 } Date;
 
-/*typedef struct {
+typedef struct {
     string nom;
     string prenom;
-    Date naissance;
-    Date mort;
-    Livre livres;
-} Auteur;*/
+    Date dateN;
+    Date dateM;
+    int nbrLivresAuteur;
+    int listeLivres[MAX_LIVRES];
+} Auteur;
 
 typedef struct {
     string titre;
-    string auteur;
+    int ListeAuteurs[MAX_AUTEURS];
+    string genre;
+    string type;
     Date date;
     int pages;
 } Livre;
 
 typedef struct {
     Livre tab_livres[MAX_LIVRES];
-    int nbrElem;
+    int nbrLivres;
+    Auteur tab_auteurs[MAX_AUTEURS];
+    int nbrAuteurs;
 } Bibliotheque;
 
 #endif
