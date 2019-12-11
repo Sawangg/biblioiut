@@ -3,6 +3,7 @@
 #include <fstream>
 #include "biblio.h"
 #include "controle.h"
+#include "color.h"
 
 using namespace std;
 
@@ -15,14 +16,21 @@ int ajoutLivre(Bibliotheque& biblio) {
 	int m = 0;
 	int a = 0;
 
-	cout << "\n";
+	cout << endl;
 	cout << "Entrer le nom du livre :" << endl;
 	getline(cin, nom);
+	while (nom[0] == 0) {
+		cout << red << "Entrer un nom de livre !" << normal << endl;
+		getline(cin, nom);
+	}
 	biblio.tab_livres[biblio.nbrElem].titre = nom;
 	cout << "Entrer le nom de l'auteur :" << endl;
 	getline(cin, auteur);
+	while (auteur[0] == 0) {
+		cout << red << "Entrer un nom d'auteur !" << normal << endl;
+		getline(cin, auteur);
+	}
 	biblio.tab_livres[biblio.nbrElem].auteur = auteur;
-
 	do {
 		cout << "Entrer la date de parution" << endl;
 		cout << "Jour : ";
@@ -42,7 +50,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 		cout << "Annee : ";
 		a = ControleEntier();
 		biblio.tab_livres[biblio.nbrElem].date.annee = a;
-		cout << verifDate(a, m, j); // A opti
+		cout << verifDate(a, m, j);
 	} while (verifDate(a, m, j) != "");
 
 	cout << "Entrer le nombre de pages : ";
