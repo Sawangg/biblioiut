@@ -15,7 +15,7 @@ using namespace std;
 COORD nowSauvegarde;
 
 int sauvMenu() {
-	void changeSelectionSauvegarde(int oldSelection, int newSelection, string options[]);
+	void changeSelectionSauvegarde(int newSelection, string options[]);
 
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
@@ -27,17 +27,15 @@ int sauvMenu() {
 
 	SetColorAndBackground(15, 0);
 
-	int selection = 1, oldselection, touche;
+	int selection = 1, touche;
 	bool choisi = false;
-
-	oldselection = selection;
 
 	system("cls");
 	cout << "Une sauvegarde est diponible, souhaitez-vous la charger ?" << endl;
-	cout << "(Si non, vous écraserez la sauvegarde actuelle avec les nouvelles données" << endl;
-	cout << "\t\t" << options[1] << "\t\t" << options[2] << endl;
+	cout << yellow << "(Si non, vous écraserez la sauvegarde actuelle avec les nouvelles données !)" << normal << endl;
+	cout << Upurple << "\t\t1. " << normal << options[1] << Upurple << "\t\t2. " << normal << options[2] << endl;
 
-	changeSelectionSauvegarde(oldselection, selection, options);
+	changeSelectionSauvegarde(selection, options);
 
 	while (!choisi) {
 		GetConsoleCursorInfo(out, &cursorInfo);
@@ -47,7 +45,6 @@ int sauvMenu() {
 		do {
 			touche = _getch();
 
-			oldselection = selection;
 			switch (touche) {
 			case KEY_LEFT:
 				if (selection == 1) {
@@ -68,14 +65,13 @@ int sauvMenu() {
 				break;
 			default:
 				if (touche >= 49 && touche <= (48 + nbOptions)) {
-					oldselection = selection;
 					selection = touche - 48;
 					choisi = true;
 				}
 			}
 		} while (touche != ENTER && touche != KEY_LEFT && touche != KEY_RIGHT && !(touche >= 49 && touche <= (48 + nbOptions)));
 
-		changeSelectionSauvegarde(oldselection, selection, options);
+		changeSelectionSauvegarde(selection, options);
 	}
 
 	cursorInfo.bVisible = true;
@@ -84,7 +80,7 @@ int sauvMenu() {
 	return selection;
 }
 
-void changeSelectionSauvegarde(int oldSelection, int newSelection, string options[]) {
+void changeSelectionSauvegarde(int newSelection, string options[]) {
 	void changeCoord(int w, int y);
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 
@@ -95,18 +91,18 @@ void changeSelectionSauvegarde(int oldSelection, int newSelection, string option
 	if (newSelection == 1) {
 		changeCoord(0, 2);
 		SetColorAndBackground(15, 0);
-		cout << "\t\t";
+		cout << Upurple << "\t\t1. " << normal;
 		SetColorAndBackground(0, 15);
 		cout << options[1];
 		SetColorAndBackground(15, 0);
-		cout << "\t\t";
+		cout << Upurple << "\t\t2. " << normal;
 		cout << options[2] << endl;
 	} else {
 		changeCoord(0, 2);
 		SetColorAndBackground(15, 0);
-		cout << "\t\t";
+		cout << Upurple << "\t\t1. " << normal;
 		cout << options[1];
-		cout << "\t\t";
+		cout << Upurple << "\t\t2. " << normal;
 		SetColorAndBackground(0, 15);
 		cout << options[2] << endl;
 	}
