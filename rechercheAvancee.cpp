@@ -10,6 +10,7 @@ void rechercheAvancee(Bibliotheque biblio) {
     void rechercheTitre(Bibliotheque biblio);
     void rechercheGenre(Bibliotheque biblio);
     void rechercheAuteur(Bibliotheque biblio);
+    void rechercheDate(Bibliotheque biblio);
 
     string recherche[20];
     int nbrRecherche = 0;
@@ -19,23 +20,15 @@ void rechercheAvancee(Bibliotheque biblio) {
         switch (choix) {
         case 1:
             rechercheTitre(biblio);
-
-            system("pause");
             break;
         case 2:
             rechercheGenre(biblio);
-
-            system("pause");
             break;
         case 3:
             rechercheAuteur(biblio);
-
-            system("pause");
             break;
         case 4:
-
-
-            system("pause");
+            rechercheDate(biblio);
             break;
         case 5:
             break;
