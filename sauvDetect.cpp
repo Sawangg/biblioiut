@@ -4,7 +4,8 @@
 #include "biblio.h"
 
 void sauvDetect(Bibliotheque& biblio) {
-    void sauvImport(Bibliotheque& biblio);
+    void sauvImport(Bibliotheque & biblio);
+    int sauvMenu();
 
     ifstream sauvLivresExist("sauvLivres.txt");
     ifstream sauvAuteursExist("sauvAuteurs.txt");
@@ -28,7 +29,9 @@ void sauvDetect(Bibliotheque& biblio) {
             sauvImport(biblio);
             cout << "Une sauvegarde est disponible ! Voulez-vous l'utiliser ?" << endl << "(Si vous sélectionnez NON vous écraserez la sauvegarde précédente !)" << endl << "\t\tOUI" << "\t\tNON" << endl;
             system("pause");
+
             // Menu sauvegarde
+            int choix = sauvMenu(); // 1 si oui et 2 si non
         }
         sauvLivresExist.close();
         sauvAuteursExist.close();
