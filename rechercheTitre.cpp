@@ -5,6 +5,7 @@ using namespace std;
 
 void rechercheTitre(Bibliotheque biblio) {
 	int MenuWithColor(int menu), choix;
+	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 	void rechercheLivreTitreComplet(Bibliotheque biblio, string titre, int position[], int& nbrOccur);
 	void rechercheLivreTitrePartie(Bibliotheque biblio, string bout_titre, int position[], int& nbrOccur);
 
@@ -36,4 +37,8 @@ void rechercheTitre(Bibliotheque biblio) {
 	} while (choix != 3);
 
 	// Les afficher
+	cout << endl << "Voici le résultat de la recherche: ";
+	afficheSomeLivres(biblio, position, nbrOccur);
+
+	system("pause");
 }

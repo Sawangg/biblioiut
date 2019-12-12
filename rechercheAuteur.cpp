@@ -7,6 +7,7 @@ using namespace std;
 
 void rechercheAuteur(Bibliotheque biblio) {
 	int MenuWithColor(int menu), choix;
+	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 	Date saisieDate();
 
 	void rechercheLivreAuteurNom(Bibliotheque biblio, string nom, int position[], int& nbrOccur);
@@ -18,11 +19,6 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 	string nom, prenom;
 	Date date;
-
-	string verifDate(int a, int m, int j);
-	int j = 0;
-	int m = 0;
-	int a = 0;
 
 	int position[100];
 	int nbrOccur = 0;
@@ -36,6 +32,11 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			rechercheLivreAuteurNom(biblio, nom, position, nbrOccur);
 
+			// Les afficher
+			cout << endl << "Les livres écrits par M/Mme " << nom << ": ";
+			afficheSomeLivres(biblio, position, nbrOccur);
+
+			system("pause");
 			break;
 		case 2:
 			cout << "Merci de rentrer le prénom de l'auteur: ";
@@ -43,6 +44,11 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			rechercheLivreAuteurPrenom(biblio, prenom, position, nbrOccur);
 
+			// Les afficher
+			cout << endl << "Les livres écrits par " << prenom << ": ";
+			afficheSomeLivres(biblio, position, nbrOccur);
+
+			system("pause");
 			break;
 		case 3:
 			cout << "Merci de rentrer le nom de l'auteur: ";
@@ -52,16 +58,13 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			rechercheLivreAuteurNomComplet(biblio, nom, prenom, position, nbrOccur);
 
+			// Les afficher
+			cout << endl << "Les livres écrits par " << nom << " " << prenom << ": ";
+			afficheSomeLivres(biblio, position, nbrOccur);
+
+			system("pause");
 			break;
 		case 4:
-			cout << "Entrez la date de mort de l'auteur" << endl;
-			date = saisieDate();
-
-			// Lancer recherche dans dateM
-			rechercheLivreAuteurDateM(biblio, date, position, nbrOccur);
-
-			break;
-		case 5:
 			// Saisie de a date
 			cout << "Entrez la date de naissance de l'auteur" << endl;
 			date = saisieDate();
@@ -69,6 +72,24 @@ void rechercheAuteur(Bibliotheque biblio) {
 			// Lancer recherche dans dateN
 			rechercheLivreAuteurDateN(biblio, date, position, nbrOccur);
 
+			// Les afficher
+			cout << endl << "Les livres écrits par un auteur nait le " << date.jour << "/" << date.mois << "/" << date.annee << ": ";
+			afficheSomeLivres(biblio, position, nbrOccur);
+
+			system("pause");
+			break;
+		case 5:
+			cout << "Entrez la date de mort de l'auteur" << endl;
+			date = saisieDate();
+
+			// Lancer recherche dans dateM
+			rechercheLivreAuteurDateM(biblio, date, position, nbrOccur);
+
+			// Les afficher
+			cout << endl << "Les livres écrits par un auteur mort le " << date.jour << "/" << date.mois << "/" << date.annee << ": ";
+			afficheSomeLivres(biblio, position, nbrOccur);
+
+			system("pause");
 			break;
 		case 6:
 			cout << red << "EN COURS DE DISCUSSION" << normal << endl;
