@@ -12,9 +12,6 @@ int ajoutLivre(Bibliotheque& biblio) {
 	string nom;
 	string auteur;
 	int pages;
-	int j = 0;
-	int m = 0;
-	int a = 0;
 
 	cout << endl;
 	cout << "Entrer le nom du livre :" << endl;
@@ -32,7 +29,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 	}
 	/*biblio.tab_livres[biblio.nbrLivres].auteur = auteur;*/
 
-	cout << "Entrez la date de parution";
+	cout << "Entrez la date de parution" << endl;
 	Date date = saisieDate();
 	biblio.tab_livres[biblio.nbrLivres].date.jour = date.jour;
 	biblio.tab_livres[biblio.nbrLivres].date.mois = date.mois;
@@ -43,19 +40,9 @@ int ajoutLivre(Bibliotheque& biblio) {
 	biblio.tab_livres[biblio.nbrLivres].pages = pages;
 	cout << "\x1B[32mLe livre a bien ete ajoute !\033[0m" << endl;
 
-	ofstream file;
-	file.open("sauvegarde.txt");
-	file << "Nom : " << nom;
-
-	/*string STRING;
-	ifstream infile;
-	infile.open("sauvegarde.txt");
-	while (!infile.eof()) {
-		getline(infile, STRING);
-		cout << STRING;
-	}
-	infile.close();
-	system("pause");*/
+	ofstream sauvLivres("sauvLivres.txt", ios::app);
+	sauvLivres << nom << endl << auteur << endl << date.jour << endl << date.mois << endl << date.annee << endl << pages << endl << SEP << endl;
+	sauvLivres.close();
 
 	return biblio.nbrLivres += 1;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "biblio.h"
 #include "color.h"
 
@@ -15,17 +16,18 @@ int main() {
     int choix;
     int MenuWithColor(int numMenu);
     void rechercheAvancee(Bibliotheque biblio);
-    void afficheLivres(Bibliotheque biblio);
+    void afficheAllLivres(Bibliotheque biblio);
+    void sauvDetect(Bibliotheque& biblio);
     int ajoutLivre(Bibliotheque& biblio);
     // int supprLivre(Bibliotheque & biblio);
-
-    biblio.nbrLivres = 0;
+    
+    sauvDetect(biblio); // Detecte si une sauvegarde est présente
 
     do {
         choix = MenuWithColor(1);
         switch (choix) {
         case 1:
-            afficheLivres(biblio);
+            afficheAllLivres(biblio);
             system("pause");
             break;
         case 2:

@@ -7,6 +7,7 @@ using namespace std;
 
 const int MAX_LIVRES = 100;
 const int MAX_AUTEURS = 100;
+const string SEP = "sep##^µ^¨%**=-+---=Ã=-*$1007£é@SeP!?===)à+]°";
 
 typedef struct {
     int jour = 0;
