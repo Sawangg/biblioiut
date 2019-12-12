@@ -8,7 +8,7 @@
 using namespace std;
 
 int ajoutLivre(Bibliotheque& biblio) {
-	string verifDate(int a, int m, int j);
+	Date saisieDate();
 	string nom;
 	string auteur;
 	int pages;
@@ -31,27 +31,12 @@ int ajoutLivre(Bibliotheque& biblio) {
 		getline(cin, auteur);
 	}
 	/*biblio.tab_livres[biblio.nbrLivres].auteur = auteur;*/
-	do {
-		cout << "Entrer la date de parution" << endl;
-		cout << "Jour : ";
-		j = ControleEntier();
-		while (j < 1 || j > 31) {
-			cout << "\x1B[31mLe jour doit etre compris entre 1 et 31 !\033[0m";
-			j = ControleEntier();
-		}
-		biblio.tab_livres[biblio.nbrLivres].date.jour = j;
-		cout << "Mois : ";
-		m = ControleEntier();
-		while (m < 1 || m > 12) {
-			cout << "\x1B[31mLe mois doit etre compris entre 1 et 12 !\033[0m";
-			m = ControleEntier();
-		}
-		biblio.tab_livres[biblio.nbrLivres].date.mois = m;
-		cout << "Annee : ";
-		a = ControleEntier();
-		biblio.tab_livres[biblio.nbrLivres].date.annee = a;
-		cout << verifDate(a, m, j);
-	} while (verifDate(a, m, j) != "");
+
+	cout << "Entrez la date de parution";
+	Date date = saisieDate();
+	biblio.tab_livres[biblio.nbrLivres].date.jour = date.jour;
+	biblio.tab_livres[biblio.nbrLivres].date.mois = date.mois;
+	biblio.tab_livres[biblio.nbrLivres].date.annee = date.annee;
 
 	cout << "Entrer le nombre de pages : ";
 	pages = ControleEntier();

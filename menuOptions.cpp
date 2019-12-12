@@ -20,12 +20,29 @@ void menuOptions(int menu, string listOptions[], int& nbOptions) {
 	case 2:
 		listOptions[0] = createTitre("Recherche livre");
 		listOptions[1] = "Rechercher un livre par son titre";
-		listOptions[2] = "Rechercher un livre par son type";
-		listOptions[3] = "Rechercher un livre par son genre";
-		listOptions[4] = "Rechercher un livre par son auteur";
-		listOptions[5] = "Rechercher un livre par sa date de parution";
-		listOptions[6] = "Retour";
-		nbOptions = 6;
+		listOptions[2] = "Rechercher un livre par son genre";
+		listOptions[3] = "Rechercher un livre par son auteur";
+		listOptions[4] = "Rechercher un livre par sa date de parution";
+		listOptions[5] = "Retour";
+		nbOptions = 5;
+		break;
+	case 3:
+		listOptions[0] = createTitre("Recherche livre par titre");
+		listOptions[1] = "Rechercher un livre par son titre complet";
+		listOptions[2] = "Rechercher un livre par un bout de son titre";
+		listOptions[3] = "Retour";
+		nbOptions = 3;
+		break;
+	case 4:
+		listOptions[0] = createTitre("Recherche livre par auteur");
+		listOptions[1] = "Rechercher un livre par le nom de l'auteur";
+		listOptions[2] = "Rechercher un livre par le prénom de l'auteur";
+		listOptions[3] = "Rechercher un livre par le nom complet de l'auteur";
+		listOptions[4] = "Rechercher un livre par la date de naissance de l'auteur";
+		listOptions[5] = "Rechercher un livre par la date de mort de l'auteur";
+		listOptions[6] = "Rechercher un livre par combinaison de 2 recherches"; //DateN + prénom par exemple
+		listOptions[7] = "Retour";
+		nbOptions = 7;
 		break;
 	default:
 		listOptions[0] = "ERROR";
