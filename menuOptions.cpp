@@ -1,10 +1,11 @@
 #include <iostream>
 #include "sleep.h"
+#include "biblio.h"
 #include "color.h"
 
 using namespace std;
 
-void menuOptions(int menu, string listOptions[], int& nbOptions) {
+void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOptions) {
 	string createTitre(string titreMenu);
 
 	switch (menu) {
@@ -40,9 +41,28 @@ void menuOptions(int menu, string listOptions[], int& nbOptions) {
 		listOptions[3] = "Rechercher un livre par le nom complet de l'auteur";
 		listOptions[4] = "Rechercher un livre par la date de naissance de l'auteur";
 		listOptions[5] = "Rechercher un livre par la date de mort de l'auteur";
-		listOptions[6] = "Rechercher un livre par combinaison de 2 recherches"; //DateN + prénom par exemple
+		listOptions[6] = "Rechercher un livre par combinaison de 2 recherches"; // DateN + prénom par exemple
 		listOptions[7] = "Retour";
 		nbOptions = 7;
+		break;
+	case 5:
+		listOptions[0] = "Ajout d'un auteur au livre: \n";
+		listOptions[1] = "Choisir un auteur parmi ceux enregistrés";
+		listOptions[2] = "Créer un nouvel auteur";
+		nbOptions = 2;
+		break;
+	case 6:
+		listOptions[0] = "Sélectionnez un auteur\n";
+		for (int i = 0; i < biblio.nbrAuteurs; i++) {
+			listOptions[i + 1] = biblio.tab_auteurs[i].nom + biblio.tab_auteurs[i].prenom + ", né le ";
+			listOptions[i + 1] += biblio.tab_auteurs[i].dateN.jour + "/" + biblio.tab_auteurs[i].dateN.mois;
+			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateN.annee;
+			listOptions[i + 1] += " et mort le " + biblio.tab_auteurs[i].dateM.jour;
+			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateM.mois;
+			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateM.annee;
+		}
+		listOptions[biblio.nbrAuteurs] += "Retour";
+		nbOptions = biblio.nbrAuteurs + 1;
 		break;
 	default:
 		listOptions[0] = "ERROR";
@@ -88,7 +108,7 @@ string createTitre(string titre) {
 	for (int i = 0; i < sizeTitre + 2 + 12 * 2; i++) {
 		newTitre += "=";
 	}
-	newTitre += "\n";
+	newTitre += "\n\n";
 
 	return newTitre;
 }

@@ -5,7 +5,6 @@
 using namespace std;
 
 void rechercheGenre(Bibliotheque biblio) {
-	int MenuWithColor(int menu), choix;
 	void rechercheLivreGenreMultiple(Bibliotheque biblio, string genre[], int nbrGenres, int position[], int& nbrOccur);
 
 	string genre[20];
@@ -31,6 +30,7 @@ void rechercheGenre(Bibliotheque biblio) {
 	} while (nouveau == "o" || nouveau == "O");
 
 	rechercheLivreGenreMultiple(biblio, genre, nbrGenres, position, nbrOccur);
+
 
 	// Les afficheer trié par genre
 }

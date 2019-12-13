@@ -4,35 +4,28 @@
 #include <conio.h>
 
 #include "color.h"
+#include "biblio.h"
 
 #define KEY_UP        72
 #define KEY_DOWN      80
 #define KEY_LEFT      75
 #define KEY_RIGHT     77
 #define ENTER         13
-#define ONE           49
-#define TWO			  50
-#define THREE         51
-#define FOUR          52
-#define FIVE          53
-#define SIX           54
-#define SEVEN         55
-#define EIGHT         56
-#define NINE          57
 using namespace std;
 
 COORD now;
+int positionOptions;
 
-int MenuWithColor(int menu) {
-	void menuOptions(int menu, string listOptions[], int& nbOptions);
-	void changeSelection(int oldSelection, int newSelection, string options[]);
+int MenuWithColor(Bibliotheque biblio, int menu) {
+	void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOptions);
+	void changeSelection(int oldSelection, int newSelection, string options[], int menu);
 
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
 
 	string options[30];
 	int nbOptions = 0;
-	menuOptions(menu, options, nbOptions);
+	menuOptions(biblio, menu, options, nbOptions);
 
 	SetColorAndBackground(15, 0);
 
@@ -41,12 +34,20 @@ int MenuWithColor(int menu) {
 
 	oldselection = selection;
 	 
-	system("cls");
-	cout << options[0] << endl;
+	if (menu != 5 && menu != 6) system("cls");
+	cout << options[0];
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	positionOptions = coninfo.dwCursorPosition.Y;
+
 	for (int i = 1; i <= nbOptions; i++) {
-		cout << Upurple << i << ". " << normal << options[i] << endl;
+		if (menu != 5 && menu != 6) {
+			cout << Upurple << i << ". " << normal << options[i] << endl;
+		} else {
+			cout << Upurple << "\t" << i << ". " << normal << options[i] << endl;
+		}
 	}
-	changeSelection(oldselection, selection, options);
+	changeSelection(oldselection, selection, options, menu);
 
 	while (!choisi) {
 		GetConsoleCursorInfo(out, &cursorInfo);
@@ -87,7 +88,7 @@ int MenuWithColor(int menu) {
 			}
 		} while (touche != ENTER && touche != KEY_UP && touche != KEY_DOWN && !(touche >= 49 && touche <= (48 + nbOptions)));
 
-		changeSelection(oldselection, selection, options);
+		changeSelection(oldselection, selection, options, menu);
 	}
 
 	cursorInfo.bVisible = true;
@@ -96,7 +97,7 @@ int MenuWithColor(int menu) {
 	return selection;
 }
 
-void changeSelection(int oldSelection, int newSelection, string options[]) {
+void changeSelection(int oldSelection, int newSelection, string options[], int menu) {
 	void changeCoord(int w, int y);
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 
@@ -104,14 +105,22 @@ void changeSelection(int oldSelection, int newSelection, string options[]) {
 	now.X = coninfo.dwCursorPosition.X;
 	now.Y = coninfo.dwCursorPosition.Y;
 
-	changeCoord(0, oldSelection + 5);
-	cout << Upurple << oldSelection << ". ";
+	changeCoord(0, oldSelection + positionOptions - 1);
+	if (menu != 5 && menu != 6) {
+		cout << Upurple << oldSelection << ". ";
+	} else {
+		cout << Upurple << "\t" << oldSelection << ". ";
+	}
 	SetColorAndBackground(15, 0);
 	cout << options[oldSelection];
 	SetColorAndBackground(0, 15);
 
-	changeCoord(0, newSelection + 5);
-	cout << Upurple << newSelection << ". ";
+	changeCoord(0, newSelection + positionOptions - 1);
+	if (menu != 5 && menu != 6) {
+		cout << Upurple << newSelection << ". ";
+	} else {
+		cout << Upurple << "\t" << newSelection << ". ";
+	}
 	SetColorAndBackground(0, 15);
 	cout << options[newSelection];
 	SetColorAndBackground(15, 0);

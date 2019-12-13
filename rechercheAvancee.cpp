@@ -5,7 +5,7 @@
 using namespace std;
 
 void rechercheAvancee(Bibliotheque biblio) {
-	int MenuWithColor(int numMenu), choix;
+	int MenuWithColor(Bibliotheque biblio, int numMenu), choix;
 
     void rechercheTitre(Bibliotheque biblio);
     void rechercheGenre(Bibliotheque biblio);
@@ -16,7 +16,7 @@ void rechercheAvancee(Bibliotheque biblio) {
     int nbrRecherche = 0;
 
     do {
-        choix = MenuWithColor(2);
+        choix = MenuWithColor(biblio, 2);
         switch (choix) {
         case 1:
             rechercheTitre(biblio);

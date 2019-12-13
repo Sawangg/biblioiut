@@ -7,14 +7,12 @@
 using namespace std;
 
 int main() {
-    locale::global(locale("fr-FR"));
-
     Bibliotheque biblio;
     Livre tab_livres[MAX_LIVRES];
     string Options[100];
 
     int choix;
-    int MenuWithColor(int numMenu);
+    int MenuWithColor(Bibliotheque biblio, int numMenu);
     void rechercheAvancee(Bibliotheque biblio);
     void afficheAllLivres(Bibliotheque biblio);
     void sauvDetect(Bibliotheque& biblio);
@@ -24,7 +22,7 @@ int main() {
     sauvDetect(biblio); // Detecte si une sauvegarde est présente
 
     do {
-        choix = MenuWithColor(1);
+        choix = MenuWithColor(biblio, 1);
         switch (choix) {
         case 1:
             afficheAllLivres(biblio);

@@ -6,7 +6,7 @@
 using namespace std;
 
 void rechercheAuteur(Bibliotheque biblio) {
-	int MenuWithColor(int menu), choix;
+	int MenuWithColor(Bibliotheque biblio, int menu), choix;
 	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 	Date saisieDate();
 
@@ -24,7 +24,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 	int nbrOccur = 0;
 
 	do {
-		choix = MenuWithColor(4);
+		choix = MenuWithColor(biblio, 4);
 		switch (choix) {
 		case 1:
 			cout << "Merci de rentrer le nom de l'auteur: ";

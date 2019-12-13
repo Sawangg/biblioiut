@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+
+#include <sstream>
+
 #include "biblio.h"
 #include "controle.h"
 #include "color.h"
@@ -9,11 +12,18 @@ using namespace std;
 
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
+	int indiceAuteur;
+	int ajoutAuteur(Bibliotheque& biblio);
+	int MenuWithColor(Bibliotheque biblio, int menu);
+	void cleanLine(COORD menu);
+
+	COORD menu;
 	string nom;
 	string auteur;
 	int pages;
 
 	cout << endl;
+	//Saisie nom du livre
 	cout << "Entrer le nom du livre :" << endl;
 	getline(cin, nom);
 	while (nom[0] == 0) {
@@ -21,13 +31,83 @@ int ajoutLivre(Bibliotheque& biblio) {
 		getline(cin, nom);
 	}
 	biblio.tab_livres[biblio.nbrLivres].titre = nom;
-	cout << "Entrer le nom de l'auteur :" << endl;
-	getline(cin, auteur);
-	while (auteur[0] == 0) {
-		cout << red << "Entrer un nom d'auteur !" << normal << endl;
-		getline(cin, auteur);
-	}
-	/*biblio.tab_livres[biblio.nbrLivres].auteur = auteur;*/
+
+	//Menu pour choix parmi les auteurs ou en créer un autre
+	string valide;
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	menu.X = coninfo.dwCursorPosition.X;
+	menu.Y = coninfo.dwCursorPosition.Y;
+	do {
+		int choix1 = MenuWithColor(biblio, 5);
+		cleanLine(menu);
+		switch (choix1) {
+		case 1:
+			// Affichage des auteurs existant (s'assurer qu'il y en a)
+			if (biblio.nbrAuteurs) {
+				do {
+					indiceAuteur = MenuWithColor(biblio, 6);
+
+					switch (indiceAuteur) {
+					default:
+						if (indiceAuteur <= biblio.nbrAuteurs) {
+							biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
+							biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+						}
+						break;
+					}
+				} while (indiceAuteur != biblio.nbrAuteurs + 1);
+			} else {
+				// Bloquer -> CASE 2
+				cout << red << "Il n'y a pas d'auteurs enregistrés..." << normal << endl;
+				cout << "Création de l'auteur: " << endl;
+				indiceAuteur = ajoutAuteur(biblio);
+
+				biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
+				biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+			}
+
+			break;
+		case 2:
+			// Controler la limite sinon on repasse directement dans le case 1
+			if (biblio.nbrAuteurs == MAX_AUTEURS) {
+				// Bloquer -> CASE 1
+				cout << red << "La limite du nombre d'auteurs a été atteinte..." << normal << endl;
+				do {
+					indiceAuteur = MenuWithColor(biblio, 6);
+
+					switch (indiceAuteur) {
+					default:
+						if (indiceAuteur <= biblio.nbrAuteurs) {
+							biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
+							biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+						}
+						break;
+					}
+				} while (indiceAuteur != biblio.nbrAuteurs + 1);
+			} else {
+				cout << "Création de l'auteur: " << endl;
+				indiceAuteur = ajoutAuteur(biblio);
+
+				biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
+				biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+			}
+			break;
+		default:
+			break;
+		}
+
+		cout << "Voulez-vous ajouter un nouvel auteur au livre (0/N) ? ";
+		getline(cin, valide);
+		while (valide != "O" && valide != "o" && valide != "N" && valide != "n") {
+			cout << red << "Votre choix est invalide!" << normal << " Voulez-vous ajouter un nouvel auteur au livre (0/N) ? ";
+			getline(cin, valide);
+		}
+
+		cleanLine(menu);
+	} while (valide != "N" && valide != "n");
+	cout << "Vous avez entré " << biblio.tab_livres[biblio.nbrLivres].nbrAuteurs << " auteurs: " << endl;
+	// Afficher les deux auteurs
 
 	cout << "Entrez la date de parution" << endl;
 	Date date = saisieDate();
@@ -40,9 +120,35 @@ int ajoutLivre(Bibliotheque& biblio) {
 	biblio.tab_livres[biblio.nbrLivres].pages = pages;
 	cout << "\x1B[32mLe livre a bien ete ajoute !\033[0m" << endl;
 
+	// Conversion int en string pour supprimer les espaces
+	stringstream ss;
+	ss << date.annee;
+	string str = ss.str();
+	string annee;
+	for (int i = 0; i < str.length(); i++) {
+		if (str[i] != ' ') {
+			annee += str[i];
+		}
+	}
+
 	ofstream sauvLivres("sauvLivres.txt", ios::app);
-	sauvLivres << nom << endl << auteur << endl << date.jour << endl << date.mois << endl << date.annee << endl << pages << endl << SEP << endl;
+	sauvLivres << nom << endl << auteur << endl << date.jour << endl << date.mois << endl << annee << endl << pages << endl << SEP << endl;
 	sauvLivres.close();
 
 	return biblio.nbrLivres += 1;
+}
+
+void cleanLine(COORD menu) {
+	// Récuprérer position curseur
+	COORD cursorNow;
+	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	cursorNow.X = coninfo.dwCursorPosition.X;
+	cursorNow.Y = coninfo.dwCursorPosition.Y;
+
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), menu);
+	for (int i = 0; i < cursorNow.Y - menu.Y; i++) {
+		cout << "                                                                        " << endl;
+	}
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), menu);
 }

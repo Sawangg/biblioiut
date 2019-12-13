@@ -20,14 +20,14 @@ typedef struct {
     string prenom;
     Date dateN;
     Date dateM;
-    int nbrLivresAuteur;
+    int nbrLivresAuteur = 0;
     int listeLivres[MAX_LIVRES];
 } Auteur;
 
 typedef struct {
     string titre;
     int ListeAuteurs[MAX_AUTEURS];
-    int nbrAuteurs;
+    int nbrAuteurs = 0;
     string genre;
     Date date;
     int pages;
@@ -35,9 +35,9 @@ typedef struct {
 
 typedef struct {
     Livre tab_livres[MAX_LIVRES];
-    int nbrLivres;
+    int nbrLivres = 0;
     Auteur tab_auteurs[MAX_AUTEURS];
-    int nbrAuteurs;
+    int nbrAuteurs = 0;
 } Bibliotheque;
 
 static string ListeGenre[] = { "Roman", "Manga", "Bande dessinée", "Poésie", "Fable", "Science-fiction", "Fantaisie", "Fantastique", "Horreur", "Biographie", "Conte", "Epopée", "Nouvelle", "Article", "Pièce de théâtre", "Lettre", "Essai", "Policier", "Autre" };
