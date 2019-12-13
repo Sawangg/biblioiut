@@ -35,21 +35,15 @@ void  ajoutAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
 		biblio.tab_auteurs[biblio.nbrAuteurs].dateM.annee = 0;
 	}
 	
-	biblio.tab_auteurs[biblio.nbrAuteurs].nbrLivresAuteur = 1;
-	
-	if (auteurExistant(biblio.tab_auteurs[biblio.nbrAuteurs], biblio)) {
+	int position = auteurExistant(biblio.tab_auteurs[biblio.nbrAuteurs], biblio);
+	// Ajouter l'auteur à la bibliothèque
+	biblio.tab_auteurs[position].listeLivres[biblio.tab_auteurs[position].nbrLivresAuteur] = indiceLivre;
+	biblio.tab_auteurs[position].nbrLivresAuteur++;
+	// On augmente le nombre d'auteurs de la bibliothèque
+	biblio.nbrAuteurs++;
+	// SAUVEGARDE ICI
 
-	} else {
-		// Ajouter l'auteur à la bibliothèque
-		biblio.tab_auteurs[biblio.nbrAuteurs].listeLivres[0] = indiceLivre;
-		biblio.tab_auteurs[biblio.nbrAuteurs].nbrLivresAuteur = 1;
-		// SAUVEGARDE ICI
-
-		// Ajouter l'auteur au livre
-		livre.ListeAuteurs[livre.nbrAuteurs] = biblio.nbrAuteurs;
-		livre.nbrAuteurs++;
-
-		// On augmente le nombre d'auteurs
-		biblio.nbrAuteurs++;
-	}
+	// Ajouter l'auteur au livre
+	livre.ListeAuteurs[livre.nbrAuteurs] = position;
+	livre.nbrAuteurs++;
 }
