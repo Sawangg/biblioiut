@@ -13,7 +13,7 @@ using namespace std;
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
 	int indiceAuteur;
-	int ajoutAuteur(Bibliotheque& biblio);
+	void ajoutAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre);
 	int MenuWithColor(Bibliotheque biblio, int menu);
 	void cleanLine(COORD menu);
 
@@ -61,10 +61,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 				// Bloquer -> CASE 2
 				cout << red << "Il n'y a pas d'auteurs enregistrés..." << normal << endl;
 				cout << "Création de l'auteur: " << endl;
-				indiceAuteur = ajoutAuteur(biblio);
-
-				biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
-				biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+				ajoutAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 
 			break;
@@ -87,10 +84,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 				} while (indiceAuteur != biblio.nbrAuteurs + 1);
 			} else {
 				cout << "Création de l'auteur: " << endl;
-				indiceAuteur = ajoutAuteur(biblio);
-
-				biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
-				biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
+				ajoutAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 			break;
 		default:
@@ -100,7 +94,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 		cout << "Voulez-vous ajouter un nouvel auteur au livre (0/N) ? ";
 		getline(cin, valide);
 		while (valide != "O" && valide != "o" && valide != "N" && valide != "n") {
-			cout << red << "Votre choix est invalide!" << normal << " Voulez-vous ajouter un nouvel auteur au livre (0/N) ? ";
+			cout << red << "Votre choix est invalide!" << normal << " Voulez-vous ajouter un nouvel auteur au livre (O/N) ? ";
 			getline(cin, valide);
 		}
 
@@ -108,6 +102,19 @@ int ajoutLivre(Bibliotheque& biblio) {
 	} while (valide != "N" && valide != "n");
 	cout << "Vous avez entré " << biblio.tab_livres[biblio.nbrLivres].nbrAuteurs << " auteurs: " << endl;
 	// Afficher les deux auteurs
+	for (int i = 0; i < biblio.tab_livres[biblio.nbrLivres].nbrAuteurs; i++) {
+		cout << "\t" << i + 1 << ". M/Mme " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].nom;
+		cout << " " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].prenom << " nait le " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.jour;
+		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.mois;
+		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.annee;
+		if (biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateM.jour != 0) {
+			cout << " et mort le ";
+			cout << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.jour;
+			cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.mois;
+			cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.annee;
+		}
+		cout << "." << endl;
+	}
 
 	cout << "Entrez la date de parution" << endl;
 	Date date = saisieDate();

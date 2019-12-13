@@ -3,10 +3,11 @@
 
 #include "biblio.h"
 #include "color.h"
+#include "controle.h"
 
 using namespace std;
 
-int  ajoutAuteur(Bibliotheque& biblio) {
+void  ajoutAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
 	Date saisieDate();
 	string mort;
 
@@ -34,10 +35,21 @@ int  ajoutAuteur(Bibliotheque& biblio) {
 		biblio.tab_auteurs[biblio.nbrAuteurs].dateM.annee = 0;
 	}
 	
-	biblio.tab_auteurs[biblio.nbrAuteurs].nbrLivresAuteur = 0;
+	biblio.tab_auteurs[biblio.nbrAuteurs].nbrLivresAuteur = 1;
+	
+	if (auteurExistant(biblio.tab_auteurs[biblio.nbrAuteurs], biblio)) {
 
-	// Verif auteur existant
-	biblio.nbrAuteurs++;
+	} else {
+		// Ajouter l'auteur à la bibliothèque
+		biblio.tab_auteurs[biblio.nbrAuteurs].listeLivres[0] = indiceLivre;
+		biblio.tab_auteurs[biblio.nbrAuteurs].nbrLivresAuteur = 1;
+		// SAUVEGARDE ICI
 
-	return biblio.nbrAuteurs-1;
+		// Ajouter l'auteur au livre
+		livre.ListeAuteurs[livre.nbrAuteurs] = biblio.nbrAuteurs;
+		livre.nbrAuteurs++;
+
+		// On augmente le nombre d'auteurs
+		biblio.nbrAuteurs++;
+	}
 }
