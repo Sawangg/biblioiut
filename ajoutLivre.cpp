@@ -12,7 +12,7 @@ using namespace std;
 
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
-	int indiceAuteur;
+	int indiceAuteur, genre;
 
 	void saisieAuteur(Bibliotheque & biblio, Livre & livre, int indiceLivre);
 	void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque & biblio);
@@ -103,6 +103,16 @@ int ajoutLivre(Bibliotheque& biblio) {
 		}
 		cout << "." << endl;
 	}
+
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
+	menu.X = coninfo.dwCursorPosition.X;
+	menu.Y = coninfo.dwCursorPosition.Y;
+	cout << "Quel est le genre du livre ?" << endl;
+	genre = MenuWithColor(biblio, 7) - 1;
+	biblio.tab_livres[biblio.nbrLivres].genre = ListeGenre[genre];
+	cleanLine(menu);
+	cout << "Le genre sélectionné est: " << biblio.tab_livres[biblio.nbrLivres].genre << endl;
+
 
 	cout << "Entrez la date de parution" << endl;
 	Date date = saisieDate();
