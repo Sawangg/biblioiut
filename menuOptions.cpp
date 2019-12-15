@@ -68,6 +68,13 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		listOptions[biblio.nbrAuteurs + 1] += "Retour";
 		nbOptions = biblio.nbrAuteurs + 1;
 		break;
+	case 7:
+		listOptions[0] = "Sélectionnez le genre\n";
+		for (int i = 0; i < 19; i++) {
+			listOptions[i + 1] = ListeGenre[i];
+		}
+		nbOptions = 19;
+		break;
 	default:
 		listOptions[0] = "ERROR";
 		break;
