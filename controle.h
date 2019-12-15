@@ -82,7 +82,7 @@ static string verifDate(int a, int m, int j) {
 	return erreur;
 }
 
-static int auteurExistant(Auteur auteur, Bibliotheque biblio) {
+static int auteurExistantBibliotheque(Auteur auteur, Bibliotheque biblio) {
 	bool existant = false;
 	int i = 0;
 

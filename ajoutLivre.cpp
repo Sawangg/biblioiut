@@ -13,7 +13,9 @@ using namespace std;
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
 	int indiceAuteur;
-	void ajoutAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre);
+
+	void saisieAuteur(Bibliotheque & biblio, Livre & livre, int indiceLivre);
+	void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque & biblio);
 	int MenuWithColor(Bibliotheque biblio, int menu);
 	void cleanLine(COORD menu);
 
@@ -44,54 +46,39 @@ int ajoutLivre(Bibliotheque& biblio) {
 		switch (choix1) {
 		case 1:
 			// Affichage des auteurs existant (s'assurer qu'il y en a)
-			if (biblio.nbrAuteurs) {
-				do {
-					indiceAuteur = MenuWithColor(biblio, 6);
+			if (biblio.nbrAuteurs > 0) {
+				indiceAuteur = MenuWithColor(biblio, 6) - 1;
 
-					switch (indiceAuteur) {
-					default:
-						if (indiceAuteur <= biblio.nbrAuteurs) {
-							biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
-							biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
-						}
-						break;
-					}
-				} while (indiceAuteur != biblio.nbrAuteurs + 1);
+				if (indiceAuteur < biblio.nbrAuteurs) {
+					ajoutAuteurLivre(indiceAuteur, biblio.nbrLivres, biblio);
+				}
 			} else {
 				// Bloquer -> CASE 2
 				cout << red << "Il n'y a pas d'auteurs enregistrés..." << normal << endl;
-				cout << "Création de l'auteur: " << endl;
-				ajoutAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
+				cout << cyan << "Création de l'auteur: " << normal << endl;
+				saisieAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 
 			break;
 		case 2:
 			// Controler la limite sinon on repasse directement dans le case 1
 			if (biblio.nbrAuteurs == MAX_AUTEURS) {
-				// Bloquer -> CASE 1
 				cout << red << "La limite du nombre d'auteurs a été atteinte..." << normal << endl;
-				do {
-					indiceAuteur = MenuWithColor(biblio, 6);
+				indiceAuteur = MenuWithColor(biblio, 6) - 1;
 
-					switch (indiceAuteur) {
-					default:
-						if (indiceAuteur <= biblio.nbrAuteurs) {
-							biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[biblio.tab_livres[biblio.nbrLivres].nbrAuteurs] = indiceAuteur;
-							biblio.tab_livres[biblio.nbrLivres].nbrAuteurs++;
-						}
-						break;
-					}
-				} while (indiceAuteur != biblio.nbrAuteurs + 1);
+				if (indiceAuteur < biblio.nbrAuteurs) {
+					ajoutAuteurLivre(indiceAuteur, biblio.nbrLivres, biblio);
+				}
 			} else {
-				cout << "Création de l'auteur: " << endl;
-				ajoutAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
+				cout << cyan << "Création de l'auteur: " << normal << endl;
+				saisieAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 			break;
 		default:
 			break;
 		}
 
-		cout << "Voulez-vous ajouter un nouvel auteur au livre (0/N) ? ";
+		cout << "Voulez-vous ajouter un nouvel auteur au livre (O/N) ? ";
 		getline(cin, valide);
 		while (valide != "O" && valide != "o" && valide != "N" && valide != "n") {
 			cout << red << "Votre choix est invalide!" << normal << " Voulez-vous ajouter un nouvel auteur au livre (O/N) ? ";
@@ -100,6 +87,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 
 		cleanLine(menu);
 	} while (valide != "N" && valide != "n");
+
 	cout << "Vous avez entré " << biblio.tab_livres[biblio.nbrLivres].nbrAuteurs << " auteurs: " << endl;
 	// Afficher les deux auteurs
 	for (int i = 0; i < biblio.tab_livres[biblio.nbrLivres].nbrAuteurs; i++) {
@@ -148,14 +136,21 @@ int ajoutLivre(Bibliotheque& biblio) {
 void cleanLine(COORD menu) {
 	// Récuprérer position curseur
 	COORD cursorNow;
+	COORD console;
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
+
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
 	cursorNow.X = coninfo.dwCursorPosition.X;
 	cursorNow.Y = coninfo.dwCursorPosition.Y;
+	console.X = coninfo.srWindow.Right;
+	console.Y = coninfo.srWindow.Bottom;
 
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), menu);
 	for (int i = 0; i < cursorNow.Y - menu.Y; i++) {
-		cout << "                                                                        " << endl;
+		for (int z = 0; z <= console.X; z++) {
+			cout << " ";
+		}
+		cout << endl;
 	}
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), menu);
 }

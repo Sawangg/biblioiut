@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "sleep.h"
 #include "biblio.h"
 #include "color.h"
@@ -7,6 +9,7 @@ using namespace std;
 
 void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOptions) {
 	string createTitre(string titreMenu);
+	ostringstream oss;
 
 	switch (menu) {
 	case 1:
@@ -54,14 +57,15 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 	case 6:
 		listOptions[0] = "Sélectionnez un auteur\n";
 		for (int i = 0; i < biblio.nbrAuteurs; i++) {
-			listOptions[i + 1] = biblio.tab_auteurs[i].nom + biblio.tab_auteurs[i].prenom + ", né le ";
-			listOptions[i + 1] += biblio.tab_auteurs[i].dateN.jour + "/" + biblio.tab_auteurs[i].dateN.mois;
-			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateN.annee;
-			listOptions[i + 1] += " et mort le " + biblio.tab_auteurs[i].dateM.jour;
-			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateM.mois;
-			listOptions[i + 1] += "/" + biblio.tab_auteurs[i].dateM.annee;
+			listOptions[i + 1] = "M/Mme " + biblio.tab_auteurs[i].nom;
+			listOptions[i + 1] += " " + biblio.tab_auteurs[i].prenom + " nait le ";
+			oss << biblio.tab_auteurs[i].dateN.jour << "/" << biblio.tab_auteurs[i].dateN.mois << "/" << biblio.tab_auteurs[i].dateN.jour;
+			if (biblio.tab_auteurs[i].dateM.jour != 0) {
+				oss << " et mort le " << biblio.tab_auteurs[i].dateM.jour << "/" << biblio.tab_auteurs[i].dateM.mois << "/" << biblio.tab_auteurs[i].dateM.jour;
+			}
+			listOptions[i + 1] += oss.str();
 		}
-		listOptions[biblio.nbrAuteurs] += "Retour";
+		listOptions[biblio.nbrAuteurs + 1] += "Retour";
 		nbOptions = biblio.nbrAuteurs + 1;
 		break;
 	default:
