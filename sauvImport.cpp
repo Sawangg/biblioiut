@@ -21,8 +21,10 @@ void sauvImport(Bibliotheque& biblio) {
         if (ligneLivreSuiv == 0) {
             biblio.tab_livres[livsuiv].titre = ligneLivre;
             ligneLivreSuiv++;
-        } else if(ligneLivreSuiv == 1) {
-            // Auteur ici
+        } else if (ligneLivreSuiv == 1) {
+            for (unsigned int i = 0; i < ligneLivre.length(); i++) { // jsp si c bon lol
+                // AUTEUR(S) ICI
+            }
             ligneLivreSuiv++;
         } else if (ligneLivreSuiv == 2) {
             biblio.tab_livres[livsuiv].date.jour = stoi(ligneLivre);
@@ -36,6 +38,8 @@ void sauvImport(Bibliotheque& biblio) {
         } else if (ligneLivreSuiv == 5) {
             biblio.tab_livres[livsuiv].pages = stoi(ligneLivre);
             ligneLivreSuiv = 0;
+        } else if (ligneLivreSuiv == 6) {
+            biblio.tab_livres[livsuiv].genre = ligneLivre; // genre
             livsuiv++;
         }
     }
@@ -60,31 +64,29 @@ void sauvImport(Bibliotheque& biblio) {
             biblio.tab_auteurs[autsuiv].prenom = ligneAuteur;
             ligneAuteurSuiv++;
         } else if (ligneAuteurSuiv == 2) {
-            biblio.tab_auteurs[autsuiv].dateM.jour = stoi(ligneAuteur);
-            ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 3) {
-            biblio.tab_auteurs[autsuiv].dateM.mois = stoi(ligneAuteur);
-            ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 4) {
-            biblio.tab_auteurs[autsuiv].dateM.annee = stoi(ligneAuteur);
-            ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 5) {
             biblio.tab_auteurs[autsuiv].dateN.jour = stoi(ligneAuteur);
             ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 6) {
+        } else if (ligneAuteurSuiv == 3) {
             biblio.tab_auteurs[autsuiv].dateN.mois = stoi(ligneAuteur);
             ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 7) {
+        } else if (ligneAuteurSuiv == 4) {
             biblio.tab_auteurs[autsuiv].dateN.annee = stoi(ligneAuteur);
+            ligneAuteurSuiv++;
+        } else if (ligneAuteurSuiv == 5) {
+            biblio.tab_auteurs[autsuiv].dateM.jour = stoi(ligneAuteur);
+            ligneAuteurSuiv++;
+        } else if (ligneAuteurSuiv == 6) {
+            biblio.tab_auteurs[autsuiv].dateM.mois = stoi(ligneAuteur);
+            ligneAuteurSuiv++;
+        } else if (ligneAuteurSuiv == 7) {
+            biblio.tab_auteurs[autsuiv].dateM.annee = stoi(ligneAuteur);
             ligneAuteurSuiv++;
         } else if (ligneAuteurSuiv == 8) {
             biblio.tab_auteurs[autsuiv].nbrLivresAuteur = stoi(ligneAuteur);
             ligneAuteurSuiv++;
         } else if (ligneAuteurSuiv == 9) {
-            //biblio.tab_auteurs[autsuiv].listeLivres[1] = stoi(ligneAuteur);
+            // LIVRE(S) ICI
             ligneAuteurSuiv++;
-        } else if (ligneAuteurSuiv == 10) {
-            ligneAuteurSuiv = 0;
             autsuiv++;
         }
     }

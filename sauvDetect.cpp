@@ -22,21 +22,16 @@ void sauvDetect(Bibliotheque& biblio) {
             break;
         }
 
-        if (vide) {
-            biblio.nbrLivres = 0;
-            biblio.nbrAuteurs = 0;
-        } else {
+        if (!vide) {
             // Menu sauvegarde
             int choix = sauvMenu(); // 1 si oui et 2 si non
             if (choix == 2) {
-                ofstream sauvLivres; // Création sauvegarde livres
+                ofstream sauvLivres; // Destruction sauvegarde livres
                 sauvLivres.open("sauvLivres.txt");
                 sauvLivres.close();
-                ofstream sauvAuteurs; // Création sauvegarde auteurs
+                ofstream sauvAuteurs; // Destruction sauvegarde auteurs
                 sauvAuteurs.open("sauvAuteurs.txt");
                 sauvAuteurs.close();
-                biblio.nbrLivres = 0;
-                biblio.nbrAuteurs = 0;
             } else {
                 sauvImport(biblio);
             }
@@ -50,7 +45,5 @@ void sauvDetect(Bibliotheque& biblio) {
         ofstream sauvAuteurs; // Création sauvegarde auteurs
         sauvAuteurs.open("sauvAuteurs.txt");
         sauvAuteurs.close();
-        biblio.nbrLivres = 0;
-        biblio.nbrAuteurs = 0;
     }
 }

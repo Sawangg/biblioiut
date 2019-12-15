@@ -14,7 +14,7 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 	switch (menu) {
 	case 1:
 		listOptions[0] = createTitre("Bibliotheque IUT");
-		listOptions[1] = "Afficher l'ensemble des livres de la bibliothèque";
+		listOptions[1] = "Afficher l'ensemble des livres de la biblioth\212que";
 		listOptions[2] = "Ajouter un nouveau livre";
 		listOptions[3] = "Supprimer un livre";
 		listOptions[4] = "Rechercher un livre";
@@ -51,11 +51,11 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 	case 5:
 		listOptions[0] = "Ajout d'un auteur au livre: \n";
 		listOptions[1] = "Choisir un auteur parmi ceux enregistrés";
-		listOptions[2] = "Créer un nouvel auteur";
+		listOptions[2] = "Cr\202er un nouvel auteur";
 		nbOptions = 2;
 		break;
 	case 6:
-		listOptions[0] = "Sélectionnez un auteur\n";
+		listOptions[0] = "S\202lectionnez un auteur\n";
 		for (int i = 0; i < biblio.nbrAuteurs; i++) {
 			listOptions[i + 1] = "M/Mme " + biblio.tab_auteurs[i].nom;
 			listOptions[i + 1] += " " + biblio.tab_auteurs[i].prenom + " nait le ";

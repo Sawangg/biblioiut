@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
-
 #include "biblio.h"
 #include "color.h"
 #include "controle.h"
 
 using namespace std;
 
-void  saisieAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
+void saisieAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
 	void ajoutAuteurBibliotheque(Auteur auteur, Bibliotheque & biblio);
 	void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque & biblio);
 
@@ -22,10 +21,10 @@ void  saisieAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
 		getline(cin, newAuteur.nom);
 	}
 
-	cout << "Quel est le prénom de l'auteur ?" << endl;
+	cout << "Quel est le pr\202nom de l'auteur ?" << endl;
 	getline(cin, newAuteur.prenom);
 	while (newAuteur.prenom == "") {
-		cout << red << "Le prénom de l'auteur ne peut pas être vide..." << normal << "Quel est le prénom de l'auteur ?" << endl;
+		cout << red << "Le pr\202nom de l'auteur ne peut pas être vide..." << normal << "Quel est le pr\202nom de l'auteur ?" << endl;
 		getline(cin, newAuteur.prenom);
 	}
 
@@ -54,7 +53,6 @@ void  saisieAuteur(Bibliotheque& biblio, Livre& livre, int indiceLivre) {
 	} else {
 		ajoutAuteurLivre(position, indiceLivre, biblio);
 	}
-	
 }
 
 void ajoutAuteurBibliotheque(Auteur auteur, Bibliotheque& biblio) {
@@ -64,18 +62,17 @@ void ajoutAuteurBibliotheque(Auteur auteur, Bibliotheque& biblio) {
 		biblio.tab_auteurs[biblio.nbrAuteurs] = auteur;
 		// On augmente le nombre d'auteurs de la bibliothèque
 		biblio.nbrAuteurs++;
-
-		// SAUVEGARDE ICI
 }
 
 void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque& biblio) {
+	void sauvNewAuteur(string liste, Auteur newAuteur, Bibliotheque& biblio);
+	void addLivreAuteur(string liste, Auteur newAuteur, Bibliotheque& biblio);
+	bool auteurExistantSauvegarde(string nom);
+
 	// On vérifie s'il existe dans le livre
 	int i = 0;
 	bool trouve = false;
-	cout << biblio.tab_livres[indiceLivre].nbrAuteurs << " et " << biblio.tab_livres[indiceLivre].ListeAuteurs[i] << " et " << indiceAuteur << endl;
-	system("pause");
 	while (i < biblio.tab_livres[indiceLivre].nbrAuteurs && !trouve) {
-		cout << biblio.tab_livres[indiceLivre].nbrAuteurs << " et " << biblio.tab_livres[indiceLivre].ListeAuteurs[i] << " et " << indiceAuteur << endl;
 		if (biblio.tab_livres[indiceLivre].ListeAuteurs[i] == indiceAuteur) {
 			// L'auteur existe déjà
 			trouve = true;
@@ -84,14 +81,26 @@ void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque& biblio) {
 	}
 
 	if (!trouve) {
+
 		// Ajouter l'auteur au livre car il n'existe pas
-		biblio.tab_livres[indiceLivre].ListeAuteurs[biblio.tab_livres[indiceLivre].nbrAuteurs] = indiceAuteur;
-		biblio.tab_livres[indiceLivre].nbrAuteurs++;
+		biblio.tab_livres[indiceLivre].ListeAuteurs[biblio.tab_livres[indiceLivre].nbrAuteurs] = indiceAuteur; // Ajoute auteur au livre
+		biblio.tab_livres[indiceLivre].nbrAuteurs++; // Livre prend 1 auteur en plus
 
 		// Ajouter le livre à l'auteur
-		biblio.tab_auteurs[indiceAuteur].listeLivres[biblio.tab_auteurs[indiceAuteur].nbrLivresAuteur] = indiceLivre;
-		biblio.tab_auteurs[indiceAuteur].nbrLivresAuteur++;
+		biblio.tab_auteurs[indiceAuteur].listeLivres[biblio.tab_auteurs[indiceAuteur].nbrLivresAuteur] = indiceLivre; // Ajoute livre auteur
+		biblio.tab_auteurs[indiceAuteur].nbrLivresAuteur++; // Auteur prend 1 livre en plus
+
+		string listeLivre;
+		for (int i = 0; i < biblio.tab_auteurs[indiceAuteur].nbrLivresAuteur; i++) {
+			listeLivre += convertInt2String(biblio.tab_auteurs[indiceAuteur].listeLivres[i]) + " ";
+		}
+
+		if (auteurExistantSauvegarde(biblio.tab_auteurs[indiceAuteur].nom) == false) {
+			sauvNewAuteur(listeLivre, biblio.tab_auteurs[indiceAuteur], biblio); // Ajoute le livre a un nouvelle auteur
+		} else {
+			addLivreAuteur(listeLivre, biblio.tab_auteurs[indiceAuteur], biblio); // Ajoute le livre a un auteur existant déjà dans la sauvegarde
+		}
 	} else {
-		cout << yellow << "Cet auteur a déjà été rentré pour ce livre. " << normal;
+		cout << yellow << "Cet auteur a d\202j\205 \202t\202 rentr\202 pour ce livre. " << normal << endl;
 	}
 }
