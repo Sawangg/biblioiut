@@ -9,6 +9,7 @@ using namespace std;
 
 void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOptions) {
 	string createTitre(string titreMenu);
+	string createDate(Date date);
 	ostringstream oss;
 
 	switch (menu) {
@@ -60,14 +61,12 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		for (int i = 0; i < biblio.nbrAuteurs; i++) {
 			listOptions[i + 1] = "M/Mme " + biblio.tab_auteurs[i].nom;
 			listOptions[i + 1] += " " + biblio.tab_auteurs[i].prenom + " nait le ";
-			oss << biblio.tab_auteurs[i].dateN.jour << "/" << biblio.tab_auteurs[i].dateN.mois << "/" << biblio.tab_auteurs[i].dateN.jour;
+			listOptions[i + 1] += createDate(biblio.tab_auteurs[i].dateN);
 			if (biblio.tab_auteurs[i].dateM.jour != 0) {
-				oss << " et mort le " << biblio.tab_auteurs[i].dateM.jour << "/" << biblio.tab_auteurs[i].dateM.mois << "/" << biblio.tab_auteurs[i].dateM.jour;
+				listOptions[i + 1] += " et mort le " + createDate(biblio.tab_auteurs[i].dateM);
 			}
-			listOptions[i + 1] += oss.str();
 		}
-		listOptions[biblio.nbrAuteurs + 1] += "Retour";
-		nbOptions = biblio.nbrAuteurs + 1;
+		nbOptions = biblio.nbrAuteurs;
 		break;
 	case 7:
 		listOptions[0] = "Sélectionnez le genre\n";

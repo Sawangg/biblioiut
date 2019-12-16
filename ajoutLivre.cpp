@@ -12,6 +12,7 @@ using namespace std;
 
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
+	string createDate(Date date);
 	int indiceAuteur, genre;
 
 	void saisieAuteur(Bibliotheque & biblio, Livre & livre, int indiceLivre);
@@ -92,14 +93,11 @@ int ajoutLivre(Bibliotheque& biblio) {
 	// Afficher les deux auteurs
 	for (int i = 0; i < biblio.tab_livres[biblio.nbrLivres].nbrAuteurs; i++) {
 		cout << "\t" << i + 1 << ". M/Mme " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].nom;
-		cout << " " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].prenom << " nait le " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.jour;
-		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.mois;
-		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.annee;
+		cout << " " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].prenom << " nait le ";
+		cout << createDate(biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN);
 		if (biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateM.jour != 0) {
 			cout << " et mort le ";
-			cout << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.jour;
-			cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.mois;
-			cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.annee;
+			cout << createDate(biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateM);
 		}
 		cout << "." << endl;
 	}
