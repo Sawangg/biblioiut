@@ -34,7 +34,7 @@ int MenuWithColor(Bibliotheque biblio, int menu) {
 
 	oldselection = selection;
 	 
-	if (menu != 5 && menu != 6) system("cls");
+	if (menu != 5 && menu != 6 && menu != 7) system("cls");
 	cout << options[0];
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);

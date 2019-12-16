@@ -7,7 +7,7 @@ using namespace std;
 
 void rechercheAuteur(Bibliotheque biblio) {
 	int MenuWithColor(Bibliotheque biblio, int menu), choix;
-	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
+	void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 	Date saisieDate();
 
 	void rechercheLivreAuteurNom(Bibliotheque biblio, string nom, int position[], int& nbrOccur);
@@ -34,7 +34,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			// Les afficher
 			cout << endl << "Les livres écrits par M/Mme " << nom << ": ";
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 
 			system("pause");
 			break;
@@ -46,7 +46,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			// Les afficher
 			cout << endl << "Les livres écrits par " << prenom << ": ";
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 
 			system("pause");
 			break;
@@ -60,7 +60,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			// Les afficher
 			cout << endl << "Les livres écrits par " << nom << " " << prenom << ": ";
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 
 			system("pause");
 			break;
@@ -74,7 +74,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			// Les afficher
 			cout << endl << "Les livres écrits par un auteur nait le " << date.jour << "/" << date.mois << "/" << date.annee << ": ";
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 
 			system("pause");
 			break;
@@ -87,7 +87,7 @@ void rechercheAuteur(Bibliotheque biblio) {
 
 			// Les afficher
 			cout << endl << "Les livres écrits par un auteur mort le " << date.jour << "/" << date.mois << "/" << date.annee << ": ";
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 
 			system("pause");
 			break;

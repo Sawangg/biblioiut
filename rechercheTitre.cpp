@@ -5,7 +5,7 @@ using namespace std;
 
 void rechercheTitre(Bibliotheque biblio) {
 	int MenuWithColor(Bibliotheque biblio, int menu), choix;
-	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
+	void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 	void rechercheLivreTitreComplet(Bibliotheque biblio, string titre, int position[], int& nbrOccur);
 	void rechercheLivreTitrePartie(Bibliotheque biblio, string bout_titre, int position[], int& nbrOccur);
 
@@ -23,7 +23,7 @@ void rechercheTitre(Bibliotheque biblio) {
 
 			rechercheLivreTitreComplet(biblio, titre[0], position, nbrOccur);
 
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 			system("pause");
 			break;
 		case 2:
@@ -32,7 +32,7 @@ void rechercheTitre(Bibliotheque biblio) {
 
 			rechercheLivreTitrePartie(biblio, titre[0], position, nbrOccur);
 
-			afficheSomeLivres(biblio, position, nbrOccur);
+			afficheLivres(biblio, position, nbrOccur);
 			system("pause");
 			break;
 		case 3:
@@ -44,7 +44,7 @@ void rechercheTitre(Bibliotheque biblio) {
 
 	// Les afficher
 	cout << endl << "Voici le résultat de la recherche: ";
-	afficheSomeLivres(biblio, position, nbrOccur);
+	afficheLivres(biblio, position, nbrOccur);
 
 	system("pause");
 }

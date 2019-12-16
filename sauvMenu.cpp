@@ -30,7 +30,7 @@ int sauvMenu() {
 
 	system("cls");
 	cout << "Une sauvegarde est diponible, souhaitez-vous la charger ?" << endl;
-	cout << yellow << "(Si non, vous \202craserez la sauvegarde actuelle avec les nouvelles donn\202es !)" << normal << endl;
+	cout << yellow << "(Si non, vous écraserez la sauvegarde actuelle avec les nouvelles données !)" << normal << endl;
 	cout << Upurple << "\t\t1. " << normal << options[1] << Upurple << "\t\t2. " << normal << options[2] << endl;
 
 	changeSelectionSauvegarde(selection, options);

@@ -18,10 +18,10 @@ typedef struct {
 typedef struct {
     string nom;
     string prenom;
-    Date dateN;
-    Date dateM;
     int nbrLivresAuteur = 0;
     int listeLivres[MAX_LIVRES];
+    Date dateN;
+    Date dateM;
 } Auteur;
 
 typedef struct {
@@ -29,8 +29,8 @@ typedef struct {
     int ListeAuteurs[MAX_AUTEURS];
     int nbrAuteurs = 0;
     string genre;
-    Date date;
     int pages;
+    Date date;
 } Livre;
 
 typedef struct {

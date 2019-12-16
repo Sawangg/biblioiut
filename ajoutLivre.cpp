@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+
 #include <sstream>
+
 #include "biblio.h"
 #include "controle.h"
 #include "color.h"
@@ -10,7 +12,7 @@ using namespace std;
 
 int ajoutLivre(Bibliotheque& biblio) {
 	Date saisieDate();
-	int indiceAuteur, genrenum;
+	int indiceAuteur, genre;
 
 	void saisieAuteur(Bibliotheque & biblio, Livre & livre, int indiceLivre);
 	void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque & biblio);
@@ -19,6 +21,7 @@ int ajoutLivre(Bibliotheque& biblio) {
 
 	COORD menu;
 	string nom;
+	string auteur;
 	int pages;
 
 	cout << endl;
@@ -51,8 +54,8 @@ int ajoutLivre(Bibliotheque& biblio) {
 				}
 			} else {
 				// Bloquer -> CASE 2
-				cout << red << "Il n'y a pas d'auteurs enregistr\202s..." << normal << endl;
-				cout << cyan << "Cr\202ation de l'auteur: " << normal << endl;
+				cout << red << "Il n'y a pas d'auteurs enregistrés..." << normal << endl;
+				cout << cyan << "Création de l'auteur: " << normal << endl;
 				saisieAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 
@@ -60,14 +63,14 @@ int ajoutLivre(Bibliotheque& biblio) {
 		case 2:
 			// Controler la limite sinon on repasse directement dans le case 1
 			if (biblio.nbrAuteurs == MAX_AUTEURS) {
-				cout << red << "La limite du nombre d'auteurs a \202t\202 atteinte..." << normal << endl;
+				cout << red << "La limite du nombre d'auteurs a été atteinte..." << normal << endl;
 				indiceAuteur = MenuWithColor(biblio, 6) - 1;
 
 				if (indiceAuteur < biblio.nbrAuteurs) {
 					ajoutAuteurLivre(indiceAuteur, biblio.nbrLivres, biblio);
 				}
 			} else {
-				cout << cyan << "Cr\202ation de l'auteur: " << normal << endl;
+				cout << cyan << "Création de l'auteur: " << normal << endl;
 				saisieAuteur(biblio, biblio.tab_livres[biblio.nbrLivres], biblio.nbrLivres);
 			}
 			break;
@@ -85,10 +88,10 @@ int ajoutLivre(Bibliotheque& biblio) {
 		cleanLine(menu);
 	} while (valide != "N" && valide != "n");
 
-	cout << "Vous avez entr\202 " << biblio.tab_livres[biblio.nbrLivres].nbrAuteurs << " auteurs: " << endl;
+	cout << "Vous avez entré " << biblio.tab_livres[biblio.nbrLivres].nbrAuteurs << " auteurs: " << endl;
 	// Afficher les deux auteurs
 	for (int i = 0; i < biblio.tab_livres[biblio.nbrLivres].nbrAuteurs; i++) {
-		cout << "\t" << i + 1 << ". " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].nom;
+		cout << "\t" << i + 1 << ". M/Mme " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].nom;
 		cout << " " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].prenom << " nait le " << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.jour;
 		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.mois;
 		cout << "/" << biblio.tab_auteurs[biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]].dateN.annee;
@@ -105,10 +108,10 @@ int ajoutLivre(Bibliotheque& biblio) {
 	menu.X = coninfo.dwCursorPosition.X;
 	menu.Y = coninfo.dwCursorPosition.Y;
 	cout << "Quel est le genre du livre ?" << endl;
-	genrenum = MenuWithColor(biblio, 7) - 1;
-	string genre = biblio.tab_livres[biblio.nbrLivres].genre = ListeGenre[genrenum];
+	genre = MenuWithColor(biblio, 7) - 1;
+	biblio.tab_livres[biblio.nbrLivres].genre = ListeGenre[genre];
 	cleanLine(menu);
-	cout << "Le genre s\202lectionn\202 est: " << biblio.tab_livres[biblio.nbrLivres].genre << endl;
+	cout << "Le genre sélectionné est: " << biblio.tab_livres[biblio.nbrLivres].genre << endl;
 
 
 	cout << "Entrez la date de parution" << endl;
@@ -123,16 +126,19 @@ int ajoutLivre(Bibliotheque& biblio) {
 	cout << "\x1B[32mLe livre a bien ete ajoute !\033[0m" << endl;
 
 	// Conversion int en string pour supprimer les espaces
-	string annee = convertInt2String(date.annee);
-
-	string listeAuteurs;
-	for (int i = 0; i < biblio.tab_livres[biblio.nbrLivres].nbrAuteurs; i++) {
-		listeAuteurs += convertInt2String(biblio.tab_livres[biblio.nbrLivres].ListeAuteurs[i]) + " ";
+	stringstream ss;
+	ss << date.annee;
+	string str = ss.str();
+	string annee;
+	for (int i = 0; i < str.length(); i++) {
+		if (str[i] != ' ') {
+			annee += str[i];
+		}
 	}
 
-	ofstream sauvLivres("sauvLivres.txt", ios::app);
-	sauvLivres << nom << endl << listeAuteurs << endl << date.jour << endl << date.mois << endl << annee << endl << pages << endl << genre << endl << SEP << endl;
-	sauvLivres.close();
+	/*ofstream sauvLivres("sauvLivres.txt", ios::app);
+	sauvLivres << nom << endl << auteur << endl << date.jour << endl << date.mois << endl << annee << endl << pages << endl << SEP << endl;
+	sauvLivres.close();*/
 
 	return biblio.nbrLivres += 1;
 }

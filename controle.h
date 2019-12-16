@@ -100,4 +100,17 @@ static int auteurExistantBibliotheque(Auteur auteur, Bibliotheque biblio) {
 	}
 }
 
+static string convertInt2String(int entier) {
+	stringstream ss;
+	ss << entier;
+	string str = ss.str();
+	string stringFin;
+	for (unsigned int i = 0; i < str.length(); i++) {
+		if (str[i] != ' ') {
+			stringFin += str[i];
+		}
+	}
+	return stringFin;
+}
+
 #endif

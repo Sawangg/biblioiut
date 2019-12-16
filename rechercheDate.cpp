@@ -5,7 +5,7 @@ using namespace std;
 
 void rechercheDate(Bibliotheque biblio) {
 	void rechercheLivreDate(Bibliotheque biblio, Date date, int position[], int& nbrOccur);
-	void afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
+	void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres);
 
 	Date saisieDate();
 
@@ -20,7 +20,7 @@ void rechercheDate(Bibliotheque biblio) {
 
 	// Les afficher
 	cout << endl << "Les livres parus le " << date.jour << "/" << date.mois << "/" << date.annee << ": ";
-	afficheSomeLivres(biblio, position, nbrOccur);
+	afficheLivres(biblio, position, nbrOccur);
 
 	system("pause");
 }
