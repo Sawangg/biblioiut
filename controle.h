@@ -4,9 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <algorithm>
 #include "biblio.h"
-#include "color.h"
 
 using namespace std;
 
@@ -84,16 +82,35 @@ static string verifDate(int a, int m, int j) {
 	return erreur;
 }
 
-static void verifnbrLivre(Bibliotheque biblio) {
-    if (biblio.nbrLivres == 0) {
-        cout << endl;
-        cout << red << "La bilbiotheque ne contient aucun livre !" << normal << endl;
-        system("pause");
-    }
+static int auteurExistantBibliotheque(Auteur auteur, Bibliotheque biblio) {
+	bool existant = false;
+	int i = 0;
+
+	while (i < biblio.nbrAuteurs && !existant) {
+		if (auteur.nom == biblio.tab_auteurs[i].nom && auteur.prenom == biblio.tab_auteurs[i].prenom && (auteur.dateN.jour == biblio.tab_auteurs[i].dateN.jour && auteur.dateN.mois == biblio.tab_auteurs[i].dateN.mois && auteur.dateN.annee == biblio.tab_auteurs[i].dateN.annee) && (auteur.dateM.jour == biblio.tab_auteurs[i].dateM.jour && auteur.dateM.mois == biblio.tab_auteurs[i].dateM.mois && auteur.dateM.annee == biblio.tab_auteurs[i].dateM.annee)) {
+			existant = true;
+		}
+		i++;
+	}
+
+	if (existant) {
+		return i - 1;
+	} else {
+		return i;
+	}
 }
 
-static string toUppercase(string upper) {
-    transform(str.begin(), str.end(), str.begin(), ::toupper);
+static string convertInt2String(int entier) {
+	stringstream ss;
+	ss << entier;
+	string str = ss.str();
+	string stringFin;
+	for (unsigned int i = 0; i < str.length(); i++) {
+		if (str[i] != ' ') {
+			stringFin += str[i];
+		}
+	}
+	return stringFin;
 }
 
 #endif
