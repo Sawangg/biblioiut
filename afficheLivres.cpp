@@ -24,8 +24,8 @@ void afficheLivres(Bibliotheque biblio) {
 }
 
 void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres) {
-    int debut = 0, milieu = 0, fin = 0, touche;
-    int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, int debut);
+    int debut = 0, milieu = 0, fin = 0, touche, numPage = 1;
+    int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, int debut, int numPage);
 
     // Rendre invisible le curseur
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -35,7 +35,7 @@ void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres) {
     SetConsoleCursorInfo(out, &cursorInfo);
 
     do {
-        fin = afficheSomeLivres(biblio, indiceLivres, nbrLivres, milieu);
+        fin = afficheSomeLivres(biblio, indiceLivres, nbrLivres, milieu, numPage);
 
         do {
             touche = _getch();
@@ -45,6 +45,7 @@ void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres) {
                 if (milieu != 0) {
                     fin = milieu;
                     milieu = debut;
+                    numPage--;
                 } else {
                     touche = 0;
                 }
@@ -53,6 +54,7 @@ void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres) {
                 if (fin != nbrLivres) {
                     debut = milieu;
                     milieu = fin;
+                    numPage++;
                 } else {
                     touche = 0;
                 }
@@ -71,7 +73,7 @@ void afficheLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres) {
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, int debut) {
+int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, int debut, int numPage) {
     // void afficheLivre(Livre livre);
     system("cls");
 
@@ -110,37 +112,37 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
 
     // On affiche l'entête du tableau...
     separatorTab(console);
-    cout << "+ ";
+    cout << cyan << "| " << normal;
     getCoordCursor(cursor);
-    cout << "Titre";
+    cout << Upurple << "Titre" << normal;
     cursor.X += taille_Titre;
     changeCoord(cursor.X, cursor.Y);
 
-    cout << " + ";
+    cout << cyan << " | " << normal;
     getCoordCursor(cursor);
-    cout << "Auteur(s)";
+    cout << Upurple  << "Auteur(s)" << normal;
     cursor.X += taille_Auteur;
     changeCoord(cursor.X, cursor.Y);
 
-    cout << " + ";
+    cout << cyan << " | " << normal;
     getCoordCursor(cursor);
-    cout << "Genre";
+    cout << Upurple  << "Genre" << normal;
     cursor.X += taille_Genre;
     changeCoord(cursor.X, cursor.Y);
 
-    cout << " + ";
+    cout << cyan << " | " << normal;
     getCoordCursor(cursor);
-    cout << "Pages";
+    cout << Upurple << "Pages" << normal;
     cursor.X += taille_Page;
     changeCoord(cursor.X, cursor.Y);
 
-    cout << " + ";
+    cout << cyan << " | " << normal;
     getCoordCursor(cursor);
-    cout << "Date";
+    cout << Upurple <<"Date"<< normal;
     cursor.X += taille_Date;
     changeCoord(cursor.X, cursor.Y);
 
-    cout << " +" << endl;
+    cout << cyan << " |" << normal << endl;
     separatorTab(console);
 
     // On affiche les données du tableau
@@ -153,7 +155,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         getCoordCursor(cursor);
         for (int i = livre.nbrAuteurs - 1; i >= 0; i--) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << "+ ";
+            cout << cyan << "| " << normal;
         }
         // Le titre
         getCoordCursor(cursor);
@@ -169,7 +171,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         }
         for (int i = livre.nbrAuteurs - 1; i >= 0; i--) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << " + ";
+            cout << cyan << " | " << normal;
         }
 
 
@@ -183,7 +185,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         changeCoord(cursor.X, cursor.Y);
         for (int i = livre.nbrAuteurs - 1; i >= 0; i--) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << " + ";
+            cout << cyan << " | " << normal;
         }
 
         // Le genre
@@ -200,7 +202,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         }
         for (int i = livre.nbrAuteurs - 1; i >= 0; i--) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << " + ";
+            cout << cyan << " | " << normal;
         }
 
         // Les pages
@@ -219,7 +221,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         }
         for (int i = livre.nbrAuteurs - 1; i >= 0; i--) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << " + ";
+            cout << cyan << " | " << normal;
         }
 
         // La date
@@ -229,7 +231,7 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         changeCoord(cursor.X, cursor.Y);
         for (int i = 0; i < livre.nbrAuteurs; i++) {
             changeCoord(cursor.X, cursor.Y + i);
-            cout << " +";
+            cout << cyan << " |" << normal;
         }
         cout << endl;
         separatorTab(console);
@@ -241,11 +243,14 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
         } else {
             if (debut != 0) {
                 changeCoord(0, console.Y - 1); // On le met à la fin, pk pas juste après le tableau
-                cout << "<-";
+                cout << yellow << "<-" << normal;
             }
+            // Afficher numéro Page
+            changeCoord((console.X / 2) - (6 / 2), console.Y - 1);
+            cout << yellow << "Page " << numPage << normal;
             if ((i + 1) < nbrLivres) {
                 changeCoord(console.X - 2, console.Y - 1); // On le met à la fin, pk pas juste après le tableau
-                cout << "->";
+                cout << yellow << "->" << normal;
             }
             place = false;
         }
@@ -258,10 +263,12 @@ int afficheSomeLivres(Bibliotheque biblio, int indiceLivres[], int nbrLivres, in
 
 void separatorTab(COORD console) {
     // On affiche le haut du tableau
-    for (int i = 0; i < console.X; i++) {
-        cout << "+";
+    cout << cyan << "+";
+    for (int i = 0; i < console.X - 2; i++) {
+        cout << "-";
     }
-    cout << endl;
+    cout << "+";
+    cout << normal << endl;
 }
 
 void getCoordCursor(COORD& position) {
