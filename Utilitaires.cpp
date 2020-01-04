@@ -46,20 +46,17 @@ COORD getTailleConsole() {
 
 	return console;
 }
-void cleanLine(COORD menu) {
+void cleanLine(COORD debut) {
 	COORD cursorNow;
-	COORD console;
 
 	getCoordCursor(cursorNow);
-	console = getTailleConsole();
 
-	changeCoord(menu.X, menu.Y);
-	for (int i = 0; i < cursorNow.Y - menu.Y; i++) {
-		for (int z = 0; z <= console.X; z++) {
+	changeCoord(debut.X, debut.Y);
+	for (int i = 0; i <= cursorNow.Y - debut.Y; i++) {
+		for (int z = 0; z <= getTailleConsole().X; z++) {
 			cout << " ";
 		}
-		cout << endl;
 	}
 
-	changeCoord(menu.X, menu.Y);
+	changeCoord(debut.X, debut.Y);
 }

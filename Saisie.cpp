@@ -118,6 +118,7 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 					// Ajouter à la biblio
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements] = auteur;
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.ListeElements[biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.nbElements] = indiceLivre;
+					biblio.bibliothequeAuteur.nbElements++;
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.nbElements++;
 				} else {
 					if (verifAuteurExistantLivre(biblio.bibliothequeLivre.ListeElements[indiceLivre], indiceAuteur)) {
@@ -166,6 +167,7 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 					// Ajouter à la biblio
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements] = auteur;
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.ListeElements[biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.nbElements] = indiceLivre;
+					biblio.bibliothequeAuteur.nbElements++;
 					biblio.bibliothequeAuteur.ListeElements[biblio.bibliothequeAuteur.nbElements].livresAuteur.nbElements++;
 				} else {
 					if (verifAuteurExistantLivre(biblio.bibliothequeLivre.ListeElements[indiceLivre], indiceAuteur)) {

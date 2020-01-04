@@ -22,36 +22,38 @@ void suppressionLivre(Bibliotheque& biblio, int indiceLivre) {
 			// Supprimer le livre chez les auteurs
 			bool livre = false;
 			int z = 0;
-			while (z < biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.nbElements && !livre) {
-				if (biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.ListeElements[z] == indiceLivre) {
-					biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.ListeElements[z] = biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.ListeElements[biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.nbElements - 1];
-					biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.nbElements--;
+			while (z < biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements && !livre) {
+				if (biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] == indiceLivre) {
+					biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] = biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements - 1];
+					biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements--;
 					livre = true;
 				}
 				z++;
 			}
 
 			// Vérifier
-			if (biblio.bibliothequeAuteur.ListeElements[i].livresAuteur.nbElements == 0) {
+			if (biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements == 0) {
 				// Supprimer auteurs
-				suppressionAuteur(biblio, i);
+				suppressionAuteur(biblio, indicesAuteurs.ListeElements[i]);
 			}
 		}
 
 		// Supprimer le livre
 		biblio.bibliothequeLivre.ListeElements[indiceLivre] = biblio.bibliothequeLivre.ListeElements[biblio.bibliothequeLivre.nbElements - 1];
 		biblio.bibliothequeLivre.nbElements--;
-		auteursLivre(biblio, biblio.bibliothequeLivre.nbElements - 1, indicesAuteurs);
-		for (int i = 0; i < indicesAuteurs.nbElements; i++) {
-			// Modifier indice du livre des auteurs qui ont écrit le dernier livre
-			bool livre = false;
-			int z = 0;
-			while (z < biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements && !livre) {
-				if (biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] == biblio.bibliothequeLivre.nbElements - 1) {
-					biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] = indiceLivre;
-					livre = true;
+		if (biblio.bibliothequeLivre.nbElements != 0) {
+			auteursLivre(biblio, biblio.bibliothequeLivre.nbElements - 1, indicesAuteurs);
+			for (int i = 0; i < indicesAuteurs.nbElements; i++) {
+				// Modifier indice du livre des auteurs qui ont écrit le dernier livre
+				bool livre = false;
+				int z = 0;
+				while (z < biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.nbElements && !livre) {
+					if (biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] == biblio.bibliothequeLivre.nbElements - 1) {
+						biblio.bibliothequeAuteur.ListeElements[indicesAuteurs.ListeElements[i]].livresAuteur.ListeElements[z] = indiceLivre;
+						livre = true;
+					}
+					z++;
 				}
-				z++;
 			}
 		}
 	} else {
