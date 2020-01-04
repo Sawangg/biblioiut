@@ -7,7 +7,7 @@ void CreationContraintes(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
     Liste<string> options;
 
     do {
-        options.ListeElements[0] = createTitre("Créer une nouvelle contrainte");
+        options.ListeElements[0] = createTitre("Cr\202er une nouvelle contrainte");
         options.ListeElements[1] = "Contrainte sur le titre";
         options.ListeElements[2] = "Contrainte sur le genre";
         options.ListeElements[3] = "Contrainte sur l'auteur";

@@ -58,7 +58,7 @@ string verifDate(int a, int m, int j) {
                 if (j < 29) {
                     erreur = "";
                 } else {
-                    erreur = "Le mois que vous avez choisi ne contient pas 29 jours car l'annee n'est pas bissextile\n";
+                    erreur = "Le mois que vous avez choisi ne contient pas 29 jours car l'ann\202e n'est pas bissextile\n";
                 }
             }
         }

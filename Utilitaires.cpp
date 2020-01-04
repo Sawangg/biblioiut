@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <iostream>
+
 using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -7,10 +8,12 @@ using namespace std;
 //   Fonctions sur le curseur....
 //
 /////////////////////////////////////////////////////////////////////////////
+
 void changeCoord(int x, int y) {
 	COORD p = { SHORT(x), SHORT(y) };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
 }
+
 void cursorVisible(bool visible) {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
@@ -19,6 +22,7 @@ void cursorVisible(bool visible) {
 	cursorInfo.bVisible = visible;
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
+
 void getCoordCursor(COORD& position) {
 	CONSOLE_SCREEN_BUFFER_INFO coninfo;
 
@@ -32,6 +36,7 @@ void getCoordCursor(COORD& position) {
 //   Fonctions sur la console....
 //
 /////////////////////////////////////////////////////////////////////////////
+
 void freezConsole() {
 	HWND hwnd = GetConsoleWindow();
 	SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
@@ -46,6 +51,7 @@ COORD getTailleConsole() {
 
 	return console;
 }
+
 void cleanLine(COORD debut) {
 	COORD cursorNow;
 
@@ -57,6 +63,5 @@ void cleanLine(COORD debut) {
 			cout << " ";
 		}
 	}
-
 	changeCoord(debut.X, debut.Y);
 }

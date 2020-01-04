@@ -12,8 +12,8 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 
 	do {
 		options.ListeElements[0] = createTitre("Recherche");
-		options.ListeElements[1] = "Créer des contraintes";
-		options.ListeElements[2] = "Créer des groupes de contraintes";
+		options.ListeElements[1] = "Cr\202er des contraintes";
+		options.ListeElements[2] = "Cr\202er des groupes de contraintes";
 		options.ListeElements[3] = "Modifier une contrainte/groupe de contraintes";
 		options.ListeElements[4] = "Supprimer une contrainte/groupe de contraintes";
 		options.ListeElements[5] = "Effectuer la recherche";
@@ -26,7 +26,7 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 			if (contraintes.nbElements != MAX) {
 				CreationContraintes(biblio, contraintes);
 			} else {
-				cout << red << "Vous avez atteint la limite du nombre de contraintes..." << normal << endl;
+				cout << red << "Vous avez atteint la limite du nombre de contraintes !" << normal << endl;
 				system("pause");
 			}
 			break;
@@ -35,11 +35,11 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 				if (contraintes.nbElements != MAX) {
 					CreationGroupesContraintes(biblio, contraintes);
 				} else {
-					cout << red << "Vous avez atteint la limite du nombre de contraintes..." << normal << endl;
+					cout << red << "Vous avez atteint la limite du nombre de contraintes !" << normal << endl;
 					system("pause");
 				}
 			} else {
-				cout << red << "Vous devez avoir créé, au minimum, 2 contraintes pour créer un groupe de contraintes..." << normal << endl;
+				cout << red << "Vous devez avoir cr\202\202, au minimum, 2 contraintes pour cr\202er un groupe de contraintes !" << normal << endl;
 				system("pause");
 			}
 			break;
@@ -47,7 +47,7 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 			if (contraintes.nbElements >= 1) {
 				modificationContrainte(biblio, contraintes);
 			} else {
-				cout << red << "Vous devez avoir créé, au minimum, 1 contrainte pour pouvoir la modifier..." << normal << endl;
+				cout << red << "Vous devez avoir cr\202\202, au minimum, 1 contrainte pour pouvoir la modifier !" << normal << endl;
 				system("pause");
 			}
 			break;
@@ -55,7 +55,7 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 			if (contraintes.nbElements >= 1) {
 				suppressionContrainte(biblio, contraintes);
 			} else {
-				cout << red << "Vous devez avoir créé, au minimum, 1 contrainte pour pouvoir en supprimer une..." << normal << endl;
+				cout << red << "Vous devez avoir cr\202\202, au minimum, 1 contrainte pour pouvoir en supprimer une !" << normal << endl;
 				system("pause");
 			}
 			break;
@@ -72,12 +72,12 @@ void Recherche(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 						afficheLivres(biblio, livres);
 						livres.nbElements = 0;
 					} else {
-						cout << red << "Aucun livre ne correspond à votre recherche..." << normal << endl;
+						cout << red << "Aucun livre ne correspond \205 votre recherche !" << normal << endl;
 						system("pause");
 					}
 				}
 			} else {
-				cout << red << "Vous devez avoir créé, au minimum, 1 contrainte pour pouvoir effectuer une recherche..." << normal << endl;
+				cout << red << "Vous devez avoir cr\202\202, au minimum, 1 contrainte pour pouvoir effectuer une recherche !" << normal << endl;
 				system("pause");
 			}
 			break;

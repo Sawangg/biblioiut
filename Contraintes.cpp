@@ -27,9 +27,9 @@ void ajoutContrainte(Liste<Contraintes>& contraintes, string typeRestriction, st
 	if (!verifContrainteExistanteBibliotheque(contrainte, contraintes)) {
 		contraintes.ListeElements[contraintes.nbElements] = contrainte;
 		contraintes.nbElements++;
-		cout << green << "La contrainte: " << descriptionContrainte(contrainte) << ", a bien été ajoutée" << normal << endl;
+		cout << green << "La contrainte: " << descriptionContrainte(contrainte) << ", a bien \202t\202 ajout\202e" << normal << endl;
 	} else {
-		cout << red << "La contrainte: " << descriptionContrainte(contrainte) << ", existe déjà..." << normal << endl;
+		cout << red << "La contrainte: " << descriptionContrainte(contrainte) << ", existe d\202j\205..." << normal << endl;
 	}
 }
 string descriptionContrainte(Contraintes contrainte) {
@@ -40,7 +40,7 @@ string descriptionContrainte(Contraintes contrainte) {
 		decompositionContrainte(contrainte, type, data);
 		
 		if (type == "TitreCompletLivre") {
-			description = "Titre est égal à " + data;
+			description = "Titre est \202gal \205 " + data;
 		} else if (type == "TitreBoutLivre") {
 			description = "Titre contient " + data;
 		} else if (type == "DateLivre") {
@@ -50,16 +50,16 @@ string descriptionContrainte(Contraintes contrainte) {
 		} else if (type == "NomAuteur") {
 			description = "Le nom de l'auteur est " + data;
 		} else if (type == "PrenomAuteur") {
-			description = "Le prénom de l'auteur est " + data;
+			description = "Le pr\202nom de l'auteur est " + data;
 		} else if (type == "NaissanceAuteur") {
-			description = "L'auteur est né le " + data;
+			description = "L'auteur est n\202 le " + data;
 		} else if (type == "MortAuteur") {
 			description = "L'auteur est mort la " + data;
 		} else {
 			description = string(red) + "Erreur inconnue" + string(normal);
 		}
 	} else {
-		description = "Contrainte numéro " + convertInt2String(contrainte.positionContrainte1) + " " + contrainte.operateur + " " + "Contrainte numéro " + convertInt2String(contrainte.positionContrainte2);
+		description = "Contrainte num\202ro " + convertInt2String(contrainte.positionContrainte1) + " " + contrainte.operateur + " " + "Contrainte num\202ro " + convertInt2String(contrainte.positionContrainte2);
 	}
 
 	return description;
@@ -104,7 +104,7 @@ void contrainteGenre(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 	Contraintes contrainte;
 
 	Liste<string> options;
-	options.ListeElements [0] = "Sélectionnez le genre\n";
+	options.ListeElements [0] = "S\202lectionnez le genre\n";
 	for (int i = 0; i < 19; i++) {
 		options.ListeElements[i + 1] = GENRES.ListeElements[i];
 	}
@@ -126,7 +126,7 @@ void contrainteAuteur(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 	Liste<string> options;
 	options.ListeElements[0] = createTitre("Contrainte sur l'auteur");
 	options.ListeElements[1] = "Contrainte sur le nom de l'auteur";
-	options.ListeElements[2] = "Contrainte sur le prénom de l'auteur";
+	options.ListeElements[2] = "Contrainte sur le pr\202nom de l'auteur";
 	options.ListeElements[3] = "Contrainte sur la date de naissance de l'auteur";
 	options.ListeElements[4] = "Contrainte sur par la date de mort de l'auteur";
 	options.ListeElements[5] = "Retour";
@@ -141,7 +141,7 @@ void contrainteAuteur(Bibliotheque biblio, Liste<Contraintes>& contraintes) {
 		system("pause");
 		break;
 	case 2:
-		cout << "Merci de rentrer le prénom de l'auteur: ";
+		cout << "Merci de rentrer le pr\202nom de l'auteur: ";
 		getline(cin, information);
 
 		ajoutContrainte(contraintes, "PrénomAuteur", information);
@@ -239,7 +239,7 @@ void modificationContrainte(Bibliotheque biblio, Liste<Contraintes>& contraintes
 				} else if (type == "GenreLivre") {
 					// Selection genre... //
 					Liste<string> optionsGenre;
-					optionsGenre.ListeElements[0] = "Sélectionnez le genre\n";
+					optionsGenre.ListeElements[0] = "S\202lectionnez le genre\n";
 					for (int i = 0; i < 19; i++) {
 						optionsGenre.ListeElements[i + 1] = GENRES.ListeElements[i];
 					}
@@ -281,10 +281,10 @@ void modificationContrainte(Bibliotheque biblio, Liste<Contraintes>& contraintes
 					system("pause");
 				} else if (type == "PrenomAuteur") {
 					cout << cyan << "Contrainte actuelle: " << descriptionContrainte(contraintes.ListeElements[selection]) << normal << endl;
-					cout << "Saisissez le nouveau prénom de l'auteur: ";
+					cout << "Saisissez le nouveau pr\202nom de l'auteur: ";
 					getline(cin, data);
 					while (data == "") {
-						cout << red << "La saisie ne peut pas etre vide... " << normal << "Saisissez le nouveau prénom de l'auteur: ";
+						cout << red << "La saisie ne peut pas etre vide... " << normal << "Saisissez le nouveau pr\202nom de l'auteur: ";
 						getline(cin, data);
 					}
 
@@ -327,7 +327,7 @@ void modificationContrainte(Bibliotheque biblio, Liste<Contraintes>& contraintes
 					system("pause");
 				}
 			} else {
-				cout << yellow << "Il n'est pas possible de modifier un groupe de contraintes. Vous devez la supprimer et en recréer une nouvelle..." << normal << endl;
+				cout << yellow << "Il n'est pas possible de modifier un groupe de contraintes. Vous devez la supprimer et en recr\202er une nouvelle..." << normal << endl;
 				system("pause");
 			}
 		}
@@ -364,7 +364,7 @@ void suppressionContrainte(Bibliotheque biblio, Liste<Contraintes>& contraintes)
 				}
 			}
 		} else {
-			cout << red << "Vous ne pouvez pas supprimer cette contrainte car elle est utilisée dans un groupe de contraintes..." << normal << endl;
+			cout << red << "Vous ne pouvez pas supprimer cette contrainte car elle est utilis\202e dans un groupe de contraintes..." << normal << endl;
 			system("pause");
 		}
 	}

@@ -12,7 +12,7 @@ void CreationGroupesContraintes(Bibliotheque biblio, Liste<Contraintes>& contrai
 
 	do {
 		// première sélection
-		options.ListeElements[options.nbElements] = createTitre("Selection première contrainte");
+		options.ListeElements[options.nbElements] = createTitre("S\202lection de la premi\212re contrainte");
 		creationListeContraintes(options, contraintes);
 
 		select1 = menu(options, LIST_NOINDENT, NUMERIC, true);
@@ -21,7 +21,7 @@ void CreationGroupesContraintes(Bibliotheque biblio, Liste<Contraintes>& contrai
 
 			do {
 				// sélection de l'opérateur
-				options.ListeElements[0] = createTitre("Choix de l'opérateur");
+				options.ListeElements[0] = createTitre("Choix de l'op\202rateur");
 				options.ListeElements[1] = "OU";
 				options.ListeElements[2] = "ET";
 				options.ListeElements[3] = "Retour";
@@ -40,7 +40,7 @@ void CreationGroupesContraintes(Bibliotheque biblio, Liste<Contraintes>& contrai
 
 					do {
 						// deuxième sélection
-						options.ListeElements[options.nbElements] = createTitre("Selection seconde contrainte");
+						options.ListeElements[options.nbElements] = createTitre("S\202lection de la seconde contrainte");
 						creationListeContraintes(options, contraintes);
 
 						select3 = menu(options, LIST_NOINDENT, NUMERIC, true);
@@ -48,13 +48,13 @@ void CreationGroupesContraintes(Bibliotheque biblio, Liste<Contraintes>& contrai
 							newContraintes.positionContrainte2 = select3 - 1;
 
 							if (newContraintes.positionContrainte1 == newContraintes.positionContrainte2) {
-								cout << red << "Les 2 contraintes ajoutées sont identiques ! Merci de sélectionner 2 contraintes différentes..." << normal << endl;
+								cout << red << "Les 2 contraintes ajout\202es sont identiques ! Merci de s\202lectionner 2 contraintes diff\202rentes !" << normal << endl;
 								system("pause");
 							} else {
 								contraintes.ListeElements[contraintes.nbElements] = newContraintes;
 								contraintes.nbElements++;
 
-								cout << green << "Le block de contraintes a bien été ajouté..." << normal << endl;
+								cout << green << "Le block de contraintes a bien \202t\202 ajout\202 !" << normal << endl;
 								system("pause");
 
 								ajoute = true;

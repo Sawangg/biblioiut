@@ -23,7 +23,7 @@ Date saisieDate() {
 		}
 		date.mois = m;
 
-		cout << "Annee : ";
+		cout << "Ann\202e : ";
 		a = ControleEntier();
 		date.annee = a;
 		cout << red << verifDate(a, m, j) << normal;
@@ -39,14 +39,14 @@ Auteur  saisieAuteur() {
 	cout << "Quel est le nom de l'auteur ?" << endl;
 	getline(cin, newAuteur.nom);
 	while (newAuteur.nom == "") {
-		cout << red << "Le nom de l'auteur ne peut pas être vide..." << normal << "Quel est le nom de l'auteur ?" << endl;
+		cout << red << "Le nom de l'auteur ne peut pas \210tre vide..." << normal << "Quel est le nom de l'auteur ?" << endl;
 		getline(cin, newAuteur.nom);
 	}
 
-	cout << "Quel est le prénom de l'auteur ?" << endl;
+	cout << "Quel est le pr\202nom de l'auteur ?" << endl;
 	getline(cin, newAuteur.prenom);
 	while (newAuteur.prenom == "") {
-		cout << red << "Le prénom de l'auteur ne peut pas être vide..." << normal << "Quel est le prénom de l'auteur ?" << endl;
+		cout << red << "Le pr\202nom de l'auteur ne peut pas \210tre vide..." << normal << "Quel est le pr\202nom de l'auteur ?" << endl;
 		getline(cin, newAuteur.prenom);
 	}
 
@@ -82,8 +82,8 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 	getCoordCursor(cursor);
 	do {
 		options.ListeElements[0] = "Ajout d'un auteur au livre: \n";
-		options.ListeElements[1] = "Choisir un auteur parmi ceux enregistrés";
-		options.ListeElements[2] = "Créer un nouvel auteur";
+		options.ListeElements[1] = "Choisir un auteur parmi ceux enregistr\202s";
+		options.ListeElements[2] = "Cr\202er un nouvel auteur";
 		options.nbElements = 2;
 		typeAjout = menu(options, LIST_INDENT, NUMERIC, false);
 		cleanLine(cursor);
@@ -99,15 +99,15 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 						ajoutAuteurLivre(indiceAuteur, indiceLivre, biblio);
 						nouveau = requeteNouveau("Voulez-vous ajouter un nouvel auteur au livre (O/N) ? ");
 					} else {
-						cout << yellow << "Cet auteur a déjà été rentré pour ce livre..." << normal << endl;
+						cout << yellow << "Cet auteur a d\202j\205 \202t\202 rentr\202 pour ce livre..." << normal << endl;
 						system("pause");
 					}
 				} else {
 					// retour
 				}
 			} else {
-				cout << red << "Il n'y a pas d'auteurs enregistrés ou alors tous les auteurs enregistrés sont déjà associés au livre..." << normal << endl;
-				cout << cyan << "Création de l'auteur: " << normal << endl;
+				cout << red << "Il n'y a pas d'auteurs enregistr\202s ou alors tous les auteurs enregistr\202s sont d\202j\205 associ\202s au livre..." << normal << endl;
+				cout << cyan << "Cr\202ation de l'auteur: " << normal << endl;
 				auteur = saisieAuteur();
 
 				indiceAuteur = verifAuteurExistantBibliotheque(auteur, biblio);
@@ -123,7 +123,7 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 				} else {
 					if (verifAuteurExistantLivre(biblio.bibliothequeLivre.ListeElements[indiceLivre], indiceAuteur)) {
 						// Alerter...
-						cout << yellow << "Cet auteur a déjà été ajouté au livre..." << normal << endl;
+						cout << yellow << "Cet auteur a d\202j\205 \202t\202 ajout\202 au livre..." << normal << endl;
 						system("pause");
 					} else {
 						// Ajouter au livre
@@ -141,7 +141,7 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 		case 2:
 			// Controler la limite sinon on repasse directement dans le case 1
 			if (biblio.bibliothequeAuteur.nbElements == MAX) {
-				cout << red << "La limite du nombre d'auteurs a été atteinte..." << normal << endl;
+				cout << red << "La limite du nombre d'auteurs a \202t\202 atteinte..." << normal << endl;
 				indiceAuteur = selectionAuteur(biblio);
 
 				if (indiceAuteur < biblio.bibliothequeAuteur.nbElements) {
@@ -149,14 +149,14 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 						ajoutAuteurLivre(indiceAuteur, indiceLivre, biblio);
 						nouveau = requeteNouveau("Voulez-vous ajouter un nouvel auteur au livre (O/N) ? ");
 					} else {
-						cout << yellow << "Cet auteur a déjà été rentré pour ce livre..." << normal << endl;
+						cout << yellow << "Cet auteur a d\202j\205 \202t\202 rentr\202 pour ce livre..." << normal << endl;
 						system("pause");
 					}
 				} else {
 					// retour
 				}
 			} else {
-				cout << cyan << "Création de l'auteur: " << normal << endl;
+				cout << cyan << "Cr\202ation de l'auteur: " << normal << endl;
 				auteur = saisieAuteur();
 
 				indiceAuteur = verifAuteurExistantBibliotheque(auteur, biblio);
@@ -172,7 +172,7 @@ void ajoutAuteurs(Bibliotheque& biblio, int indiceLivre) {
 				} else {
 					if (verifAuteurExistantLivre(biblio.bibliothequeLivre.ListeElements[indiceLivre], indiceAuteur)) {
 						// Alerter...
-						cout << yellow << "Cet auteur a déjà été ajouté au livre..." << normal << endl;
+						cout << yellow << "Cet auteur a d\202j\205 \202t\202 ajout\202 au livre..." << normal << endl;
 						system("pause");
 					} else {
 						// Ajouter au livre
@@ -211,5 +211,5 @@ void ajoutAuteurLivre(int indiceAuteur, int indiceLivre, Bibliotheque& biblio) {
 	biblio.bibliothequeAuteur.ListeElements[indiceAuteur].livresAuteur.ListeElements[biblio.bibliothequeAuteur.ListeElements[indiceAuteur].livresAuteur.nbElements] = indiceLivre;
 	biblio.bibliothequeAuteur.ListeElements[indiceAuteur].livresAuteur.nbElements++;
 
-	cout << green << "L'auteur a bien été ajouté au livre." << normal << endl;
+	cout << green << "L'auteur a bien \202t\202 ajout\202 au livre." << normal << endl;
 }

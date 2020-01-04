@@ -14,11 +14,11 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 	switch (menu) {
 	case 1:
 		listOptions[0] = createTitre("Bibliotheque IUT");
-		listOptions[1] = "Afficher l'ensemble des livres de la bibliothèque";
+		listOptions[1] = "Afficher l'ensemble des livres de la biblioth\212que";
 		listOptions[2] = "Ajouter un nouveau livre";
 		listOptions[3] = "Supprimer un livre";
 		listOptions[4] = "Rechercher un livre";
-		listOptions[5] = "Sauvegarder la bibliothèque";
+		listOptions[5] = "Sauvegarder la biblioth\212que";
 		listOptions[6] = "Quitter";
 		nbOptions = 6;
 		break;
@@ -41,7 +41,7 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 	case 4:
 		listOptions[0] = createTitre("Contrainte sur l'auteur");
 		listOptions[1] = "Contrainte sur le nom de l'auteur";
-		listOptions[2] = "Contrainte sur le prénom de l'auteur";
+		listOptions[2] = "Contrainte sur le pr\202nom de l'auteur";
 		listOptions[3] = "Contrainte sur la date de naissance de l'auteur";
 		listOptions[4] = "Contrainte sur par la date de mort de l'auteur";
 		listOptions[5] = "Retour";
@@ -49,12 +49,12 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		break;
 	case 5:
 		listOptions[0] = "Ajout d'un auteur au livre: \n";
-		listOptions[1] = "Choisir un auteur parmi ceux enregistrés";
-		listOptions[2] = "Créer un nouvel auteur";
+		listOptions[1] = "Choisir un auteur parmi ceux enregistr\202s";
+		listOptions[2] = "Cr\202er un nouvel auteur";
 		nbOptions = 2;
 		break;
 	case 6:
-		listOptions[0] = "Sélectionnez un auteur\n";
+		listOptions[0] = "S\202lectionnez un auteur\n";
 		for (int i = 0; i < biblio.bibliothequeAuteur.nbElements; i++) {
 			listOptions[i + 1] = "M/Mme " + biblio.bibliothequeAuteur.ListeElements[i].nom;
 			listOptions[i + 1] += " " + biblio.bibliothequeAuteur.ListeElements[i].prenom + " nait le ";
@@ -67,7 +67,7 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		nbOptions = biblio.bibliothequeAuteur.nbElements + 1;
 		break;
 	case 7:
-		listOptions[0] = "Sélectionnez le genre\n";
+		listOptions[0] = "S\202lectionnez le genre\n";
 		for (int i = 0; i < 19; i++) {
 			listOptions[i + 1] = GENRES.ListeElements[i];
 		}
@@ -85,8 +85,8 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		break;
 	case 9:
 		listOptions[0] = createTitre("Recherche");
-		listOptions[1] = "Créer des contraintes";
-		listOptions[2] = "Créer des groupes de contraintes";
+		listOptions[1] = "Cr\202er des contraintes";
+		listOptions[2] = "Cr\202er des groupes de contraintes";
 		listOptions[3] = "Modifier une contrainte/groupe de contraintes";
 		listOptions[4] = "Supprimer une contrainte/groupe de contraintes";
 		listOptions[5] = "Effectuer la recherche";
@@ -94,7 +94,7 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		nbOptions = 6;
 		break;
 	case 10:
-		listOptions[0] = createTitre("Créer une nouvelle contrainte");
+		listOptions[0] = createTitre("Cr\202er une nouvelle contrainte");
 		listOptions[1] = "Contrainte sur le titre";
 		listOptions[2] = "Contrainte sur le genre";
 		listOptions[3] = "Contrainte sur l'auteur";
@@ -103,7 +103,7 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		nbOptions = 5;
 		break;
 	case 11:
-		listOptions[0] = "Sélectionnez un genre\n";
+		listOptions[0] = "S\202lectionnez un genre\n";
 		for (int i = 0; i < 19; i++) {
 			listOptions[i + 1] = GENRES.ListeElements[i];
 		}
@@ -118,12 +118,12 @@ void menuOptions(Bibliotheque biblio, int menu, string listOptions[], int& nbOpt
 		nbOptions = 3;
 		break;
 	case 13:
-		listOptions[0] = createTitre("Modification données du livre");
+		listOptions[0] = createTitre("Modification donn\202es du livre");
 		listOptions[1] = "Modifier le titre du livre";
 		listOptions[2] = "Modifier le genre du livre";
 		listOptions[3] = "Modifier le nombre de pages du livre";
 		listOptions[4] = "Modifier la date de parution du livre";
-		listOptions[5] = "Modifier les auteurs associés au livre";
+		listOptions[5] = "Modifier les auteurs associ\202s au livre";
 		listOptions[6] = "Retour";
 		nbOptions = 6;
 		break;

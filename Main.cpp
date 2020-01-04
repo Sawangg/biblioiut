@@ -33,11 +33,11 @@ int main() {
 	int choixMenu;
 	do {
 		options.ListeElements[0] = createTitre("Bibliotheque IUT");
-		options.ListeElements[1] = "Afficher l'ensemble des livres de la bibliothèque";
+		options.ListeElements[1] = "Afficher l'ensemble des livres de la biblioth\212que";
 		options.ListeElements[2] = "Ajouter un nouveau livre";
 		options.ListeElements[3] = "Supprimer un livre";
 		options.ListeElements[4] = "Rechercher un livre";
-		options.ListeElements[5] = "Sauvegarder la bibliothèque";
+		options.ListeElements[5] = "Sauvegarder la biblioth\212que";
 		options.ListeElements[6] = "Quitter";
 		options.nbElements = 6;
 		choixMenu = menu(options, LIST_NOINDENT, NUMERIC, true);
@@ -47,7 +47,7 @@ int main() {
 			if (biblio.bibliothequeLivre.nbElements > 0) {
 				afficheLivres(biblio);
 			} else {
-				cout << red << "Vous devez avoir au minimum 1 livre à afficher..." << normal << endl;
+				cout << red << "Vous devez avoir au minimum 1 livre \205 afficher !" << normal << endl;
 				system("pause");
 			}
 			
@@ -61,7 +61,7 @@ int main() {
 			if (biblio.bibliothequeLivre.nbElements > 0) {
 				Recherche(biblio, contraintes);
 			} else {
-				cout << red << "Vous devez avoir au minimum 1 livre dans la bibliothèque pour effectuer des recherches..." << normal << endl;
+				cout << red << "Vous devez avoir au minimum 1 livre dans la biblioth\212que pour effectuer des recherches !" << normal << endl;
 				system("pause");
 			}
 			break;
@@ -69,7 +69,7 @@ int main() {
 			if (biblio.bibliothequeLivre.nbElements > 0) {
 				sauvegardeBibliotheque(biblio);
 			} else {
-				cout << red << "Vous devez avoir au minimum 1 livre dans la bibliothèque pour effectuer une sauvegarde..." << normal << endl;
+				cout << red << "Vous devez avoir au minimum 1 livre dans la biblioth\212que pour effectuer une sauvegarde !" << normal << endl;
 				system("pause");
 			}
 			break;

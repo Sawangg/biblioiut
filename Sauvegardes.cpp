@@ -172,7 +172,7 @@ void sauvegardeBibliotheque(Bibliotheque biblio) {
     // On sauvegarde les auteurs
     sauvegardeAuteurs(biblio);
 
-    cout << yellow << "La sauvegarde a été effectuée avec succès..." << normal << endl;
+    cout << yellow << "La sauvegarde a \202t\202 effectu\202e avec succ\212s..." << normal << endl;
     system("pause");
 }
 void sauvegardeLivres(Bibliotheque biblio) {
