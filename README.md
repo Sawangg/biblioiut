@@ -215,6 +215,7 @@ Début
 	
 	Si (contrainteActuelle.positionContrainte1 = contrainteActuelle.positionContrainte2) alors
 		decompositionContrainte(contrainteActuelle.contrainte1 ; type, data)
+		
 		Si (type = "TitreCompletLivre") alors
 			rechercheLivresTitreComplet(biblio, data, indiceLivres, nbLivres)
 		finSi
