@@ -155,7 +155,7 @@ Fin
 ```
 Procédure Recherche(;biblio : Bibliotheque, contraintes[] : Contrainte, nbrContraintes : entier)
 Début
-	Avec selection : entier
+	Avec selection; numContrainte, indiceLivres[MAX], nbLivres : entier
 	
 	répéter
 		selection = MenuGeneral("Créer des contraintes\nCréer des groupes de contraintes\nModifier une contrainte/groupe de contraintes\nSupprimer une contrainte/groupe de contraintes\nEffectuer la recherche\nRetour",6)
@@ -186,7 +186,10 @@ Début
 				finSi
 			Cas 5:
 				Si (nbrContraintes >= 1) alors
-					RechercheLivres(;biblio : Bibliotheque, contraintes[] : Contrainte, nbrContraintes : entier)
+					numContrainte = MenuGeneral(creationListeContraintes(contraintes, nbrContraintes), nbrContraintes)
+					Si (numContrainte < nbrContrainte) alors
+						RechercheLivres(;biblio, contraintes, contraintes[numContraintes], indiceLivres, nbLivres)
+					finSi
 				Sinon
 					Afficher "Vous devez avoir au minimum 1 contrainte pour effectuer une recherche"
 				finSi
@@ -205,9 +208,47 @@ Début
 Fin 
 ```
 ```
-Procédure (;)
+Procédure RechercheLivres(;biblio : bibliotheque, contraintes[] : Contrainte, coontrainteActuelle : Contrainte, indiceLivres[] : entier, nbLivres : entier)
 Début
+	Avec indiceLivres2[MAX], nbLivres2 : entier
+	type, data : chaîne
+	
+	Si (contrainteActuelle.positionContrainte1 = contrainteActuelle.positionContrainte2) alors
+		decompositionContrainte(contrainteActuelle.contrainte1 ; type, data)
+		Si (type = "TitreCompletLivre") alors
+			rechercheLivresTitreComplet(biblio, data, indiceLivres, nbLivres)
+		finSi
+		Si (type = "TitreBoutLivre") alors
+			rechercheLivresTitreBout(biblio, data, indiceLivres, nbLivres)
+		finSi
+		Si (type = "GenreLivre") alors
+			rechercheLivresGenre(biblio, data, indiceLivres, nbLivres)
+		finSi
+		Si (type = "DateLivre") alors
+			rechercheLivresDate(biblio, convertString2Date(data), indiceLivres, nbLivres)
+		finSi
+		Si (type = "NomAuteur") alors
+			rechercheLivresAuteurNom(biblio, data, indiceLivres, nbLivres)
+		finSi
+		Si (type = "PrenomAuteur") alors
+			rechercheLivresAuteurPrenom(biblio, data, indiceLivres, nbLivres)
+		finSi
+		Si (type = "NaissanceAuteur") alors
+			rechercheLivresAuteurNaissance(biblio, convertString2Date(data), indiceLivres, nbLivres)
+		finSi
+		Si (type = "MortAuteur") alors
+			rechercheLivresAuteurMort(biblio, convertString2Date(data), indiceLivres, nbLivres)
+		finSi
+	Sinon
+		RechercheLivres(biblio, contraintes, contraintes[contrainteActuelle.positionContrainte1], indiceLivres, nbLivres)
+		RechercheLivres(biblio, contraintes, contraintes[contrainteActuelle.positionContrainte2], indiceLivres2, nbLivres2)
 
+		Si (contrainteActuelle.operateur = "et") alors
+			intersectListes(indiceLivres, nbLivres, indiceLivres2, nbLivres2)
+		Sinon
+			unionListes(indiceLivres, nbLivres, indiceLivres2, nbLivres2)
+		finSi
+	finSi
 Fin 
 ```
 
