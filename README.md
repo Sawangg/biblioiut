@@ -215,7 +215,6 @@ Début
 	
 	Si (contrainteActuelle.positionContrainte1 = contrainteActuelle.positionContrainte2) alors
 		decompositionContrainte(contrainteActuelle.contrainte1 ; type, data)
-		
 		Si (type = "TitreCompletLivre") alors
 			rechercheLivresTitreComplet(biblio, data, indiceLivres, nbLivres)
 		finSi
@@ -251,6 +250,34 @@ Début
 		finSi
 	finSi
 Fin 
+```
+```
+Procédure rechercheLivresTitreBout(biblio : biliothèque, bout_titre : chaîne, indiceLivres[] : entier, nbLivres : entier)
+Début
+	Avec titre: chaîne
+	compteur, occurrence : entier
+	
+	Pour i de 0 à biblio.nbrLivres - 1 faire
+		titre <- convertString2Upper(biblio.Livres[i].titre)
+		bout_titre <- convertString2Upper(bout_titre)
+
+		compteur <- 0
+		occurrence <- 0
+		Tant que (compteur < titre.longeur() et occurrence < bout_titre.longeur()) faire
+			Si (titre[compteur] = bout_titre[occurrence]) alors
+				occurrence <- occurrence + 1
+			Sinon
+				occurrence <- 0
+			finSi
+			compteur <- compteur + 1
+		finFaire
+
+		Si (occurrence = bout_titre.longeur()) alors
+			indicesLivres[nbLivres] <- i
+			nbLivres <- nbLivres + 1
+		finSi
+	finFaire
+Fin
 ```
 
 	> Before starting to sync files, you must link an account in the **Synchronize** sub-menu.
