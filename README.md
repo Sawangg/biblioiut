@@ -153,7 +153,7 @@ Début
 Fin 
 ```
 ```
-Procédure (;biblio : Bibliotheque, contraintes[] : Contrainte, nbrContraintes : entier)
+Procédure Recherche(;biblio : Bibliotheque, contraintes[] : Contrainte, nbrContraintes : entier)
 Début
 	Avec selection : entier
 	
