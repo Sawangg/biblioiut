@@ -42,7 +42,7 @@ CONSTANTE GENRES[19] <- { "Roman", "Manga", "Bande dessinée", "Poésie", "Fable
 CONSTANTE MAX = 100
 ```
 ****
-**Programme**
+**Programme Principale**
 ```
 Programme Bibliothèque
 Début
@@ -279,8 +279,107 @@ Début
 	finFaire
 Fin
 ```
+```
+Fonction detectionSauvegarde() retourne booléen
+Début
+	Avec titre: chaîne
+    	     existe: booléen
+	     f1: fichier des livres
+	     f2: fichier des auteurs
 
-	> Before starting to sync files, you must link an account in the **Synchronize** sub-menu.
-- HTML: publish the file converted to HTML via a Handlebars template (on a blog for example).
-> **Note:** The **Publish now** button is disabled if your file has not been published yet.
+	existe <- false
+	
+    	f1 <- ouvrir("sauvLivres.txt", lecture)
+    	f2 <- ouvrir("sauvAuteurs.txt", lecture)
 
+	lire(f1, ligne)
+    	Si (ligne != NULL) alors
+        	existe = true
+		
+		lire(f2, ligne)
+        	Si (ligne != NULL && existe) alors
+            		existe = false
+        	finSi
+	finSi
+
+        fermer(f1)
+        fermer(f2)
+    
+        return existe
+Fin
+```
+```
+Procedure importSauvegardeAuteurs(;biblio : bibliotheque)
+Début
+	Avec ligneLivre, auteur: chaîne
+    	     numLivre, livsuiv, ligneLivreSuiv, nbAuteurs: entier
+    	     f1: fichier des livres
+
+    	     numLivre <- 0
+    	     livsuiv <- 0
+    	     ligneLivreSuiv <- 0
+    	     nbAuteurs <- 0
+	     
+	     f1 <- ouvrir("sauvLivres.txt", lecture)
+	     
+	     Tant que non fdf(f1) faire
+        	lire(f1, ligneLivre)
+		Si (ligneLivre == SEP) alors
+            		numLivre <- numLivre + 1
+            		nbAuteurs <- 0
+            		auteur <- ""
+            		Continuer
+        	FinSi
+		
+        	Si (ligneLivreSuiv == 0) alors
+            		biblio.bibliothequeLivre.ListeElements[livsuiv].titre <- ligneLivre
+            		ligneLivreSuiv <- ligneLivreSuiv + 1 
+         	FinSi
+        	Si (ligneLivreSuiv == 1) alors
+            		Pour (int i = 0; i < ligneLivre.length(); i++) {
+                		Si (ligneLivre[i] == '|') alors
+                    		biblio.bibliothequeLivre.ListeElements[livsuiv].auteursLivre.ListeElements[nbAuteurs] <- auteur
+                    			nbAuteurs <- nbAuteurs
+            				auteur <- ""
+				Sinon
+                    			auteur += ligneLivre[i];
+                		FinSi
+			FinPour
+		FinSi
+           
+                biblio.bibliothequeLivre.ListeElements[livsuiv].auteursLivre.ListeElements[nbAuteurs] <- auteur
+            	biblio.bibliothequeLivre.ListeElements[livsuiv].auteursLivre.nbElements <- nbAuteurs + 1;
+                ligneLivreSuiv <- ligneLivreSuiv + 1 
+		
+        	Si (ligneLivreSuiv == 2) alors
+            		biblio.bibliothequeLivre.ListeElements[livsuiv].genre <- ligneLivre;
+            		ligneLivreSuiv <- ligneLivreSuiv + 1
+		FinSi
+		
+		Si (ligneLivreSuiv == 3) alors
+		        biblio.bibliothequeLivre.ListeElements[livsuiv].pages <- ligneLivre
+			ligneLivreSuiv <- ligneLivreSuiv + 1
+		FinSi
+		
+		Si (ligneLivreSuiv == 4) alors
+            		biblio.bibliothequeLivre.ListeElements[livsuiv].date.jour <- ligneLivre
+			ligneLivreSuiv <- ligneLivreSuiv + 1
+		FinSi
+
+		Si (ligneLivreSuiv == 5) alors
+            		biblio.bibliothequeLivre.ListeElements[livsuiv].date.mois <- ligneLivre
+			ligneLivreSuiv <- ligneLivreSuiv + 1
+		FinSi
+
+		Si (ligneLivreSuiv == 6) alors
+            		biblio.bibliothequeLivre.ListeElements[livsuiv].date.mois <- ligneLivre
+			ligneLivreSuiv <- 0
+            		livsuiv <- livsuiv + 1
+		FinSi
+		
+	     FinFaire
+	     
+        biblio.bibliothequeLivre.nbElements <- numLivre
+        fermer(f1)
+Fin
+```
